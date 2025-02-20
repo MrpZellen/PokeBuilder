@@ -6,6 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+//test API calling
+builder.Services.AddScoped(sp =>
+    new HttpClient
+    {
+        BaseAddress = new Uri("https://pokeapi.co/api/v2/pokemon")
+    });
+
 var app = builder.Build();
 builder.Services.AddBlazorBootstrap();
 // Configure the HTTP request pipeline.
