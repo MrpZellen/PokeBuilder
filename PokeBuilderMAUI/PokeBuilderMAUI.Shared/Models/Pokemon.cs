@@ -31,18 +31,18 @@ namespace PokeBuilderMAUI.Shared.Models
 
     class Pokemon
     {
-        string? name { get; set; }
-        Type primary { get; set; }
-        Type secondary { get; set; } = Type.TYPELESS;
-        string? ability { get; set; }
-        List<string>? abilities { get; set; }
-        string[] moves = new string[4];
-        int baseHealth { get; set; }
-        int baseAttack { get; set; }
-        int baseDefense { get; set; }
-        int baseSpAttack { get; set; }
-        int baseSpDefense { get; set; }
-        int baseSpeed { get; set; }
-        string? image { get; set; }
+        public readonly string? Name;
+        public readonly Type Primary;
+        public readonly Type Secondary = Type.TYPELESS;
+        public readonly string? Ability;
+        public readonly List<string>? Abilities;
+        public readonly string[] Moves = new string[4];
+        public readonly int BaseHealth;
+        public readonly int BaseAttack;
+        public readonly int BaseDefense;
+        public readonly int BaseSpAttack;
+        public readonly int BaseSpDefense;
+        public readonly int BaseSpeed;
+        public readonly string? Image;
     }
 }

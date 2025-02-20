@@ -1,0 +1,21 @@
+﻿@using PokeBuilderMAUI.Shared.Models
+
+@code {
+    private Pokemon? pokemon = new Pokemon();
+}
+
+<div>
+    <div class="model-image">
+        <img src="@pokemon.Image" />
+    </div>
+    <div class="model-name">
+        <label>@pokemon.Name</label>
+    </div>
+    <div class="model-types">
+        <label>@pokemon.Primary</label>
+        @if (pokemon.Secondary != Models.Type.TYPELESS)
+        {
+            <label>@pokemon.Secondary</label>
+        }
+    </div>
+</div>
