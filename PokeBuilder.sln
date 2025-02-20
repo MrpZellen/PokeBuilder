@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokeBuilder", "PokeBuilder\PokeBuilder.csproj", "{812FD714-D6AA-4603-9298-7EEEA2EE0FF0}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokeBuilderMAUI", "PokeBuilderMAUI\PokeBuilderMAUI\PokeBuilderMAUI.csproj", "{11D2D48D-9351-4F57-9067-9703B11E57AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokeBuilderMAUI.Shared", "PokeBuilderMAUI\PokeBuilderMAUI.Shared\PokeBuilderMAUI.Shared.csproj", "{A2151484-00BD-44D3-A915-5E550DE8757E}"
@@ -17,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{812FD714-D6AA-4603-9298-7EEEA2EE0FF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{812FD714-D6AA-4603-9298-7EEEA2EE0FF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{812FD714-D6AA-4603-9298-7EEEA2EE0FF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{812FD714-D6AA-4603-9298-7EEEA2EE0FF0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{11D2D48D-9351-4F57-9067-9703B11E57AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{11D2D48D-9351-4F57-9067-9703B11E57AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11D2D48D-9351-4F57-9067-9703B11E57AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
