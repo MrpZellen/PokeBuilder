@@ -5,14 +5,14 @@
 
 <h1>Call web API from a Blazor WebAssembly Razor component</h1>
 
-@if (getBranchesError || branches is null)
+@if (getBranchesError || pokemons is null)
 {
     <p>Unable to get branches from GitHub. Please try again later.</p>
 }
 else
 {
     <ul>
-        @foreach (var branch in branches)
+        @foreach (var branch in pokemons)
         {
             <li>@branch.Name</li>
         }
@@ -20,7 +20,7 @@ else
 }
 
 @code {
-    private IEnumerable<GitHubBranch>? branches = [];
+    private IEnumerable<Pokemon>? pokemons = [];
     private bool getBranchesError;
     private bool shouldRender;
 
@@ -28,28 +28,10 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        var request = new HttpRequestMessage(HttpMethod.Get,
-            "https://api.github.com/repos/dotnet/AspNetCore.Docs/branches");
-        request.Headers.Add("Accept", "application/vnd.github.v3+json");
-        request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
-
-        var response = await Client.SendAsync(request);
-
-        if (response.IsSuccessStatusCode)
-        {
-            using var responseStream = await response.Content.ReadAsStreamAsync();
-            branches = await JsonSerializer.DeserializeAsync
-                <IEnumerable<GitHubBranch>>(responseStream);
-        }
-        else
-        {
-            getBranchesError = true;
-        }
-
-        shouldRender = true;
+        pokemons = await Client.GetFromJsonAsync<Pokemon[]>("ditto");
     }
 
-    public class GitHubBranch
+    public class Pokemon
     {
         [JsonPropertyName("name")]
         public string? Name { get; set; }
