@@ -1,0 +1,44 @@
+﻿@using PokeBuilderMAUI.Shared.Models
+
+@code {
+    private Pokemon? pokemon = new Pokemon();
+}
+
+<div>
+    <div class="model-image">
+        <img src="@pokemon.Image" />
+    </div>
+    <div class="model-name">
+        <label>@pokemon.Name</label>
+        <label>@pokemon.Ability</label>
+    </div>
+    <div class="model-types">
+        <label>@pokemon.Primary</label>
+        @if (pokemon.Secondary != Models.Type.TYPELESS)
+        {
+            <label>@pokemon.Secondary</label>
+        }
+    </div>
+    <div class="model-moves">
+        <div class="moves-top">
+            <label>@pokemon.Moves[0]</label>
+            <label>@pokemon.Moves[1]</label>
+        </div>
+        <div class="moves-bottom">
+            <label>@pokemon.Moves[2]</label>
+            <label>@pokemon.Moves[3]</label>
+        </div>
+    </div>
+    <div class="model-stats">
+        <div class="stats-top">
+            <label>HP: @pokemon.BaseHealth</label>
+            <label>ATK: @pokemon.BaseAttack</label>
+            <label>DEF: @pokemon.BaseDefense</label>
+        </div>
+        <div class="stats-bottom">
+            <label>SPD: @pokemon.BaseSpeed</label>
+            <label>SPATK: @pokemon.BaseSpAttack</label>
+            <label>SPDEF: @pokemon.BaseSpDefense</label>
+        </div>
+    </div>
+</div>
