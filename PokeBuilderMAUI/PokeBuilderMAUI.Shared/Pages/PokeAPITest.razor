@@ -6,17 +6,57 @@
 
 <h1>Call web API from a Blazor WebAssembly Razor component</h1>
 
-<h1>@name</h1>
+@foreach (Pokemon pokemon in currentPokemon){
+    <h1>@pokemon.Name</h1>
+}
+
 
 @code {
-    public string? name;
+    private List<Pokemon> currentPokemon = new List<Pokemon>();
+    private static string? name;
+    private static Models.Type primary;
+    private static Models.Type secondary = Models.Type.TYPELESS;
+    private static string? ability;
+    private static List<string>? abilities;
+    private static List<string> moves;
+    private static string[] finalMoves = new string[4];
+    private static int baseHealth;
+    private static int baseAttack;
+    private static int baseDefense;
+    private static int baseSPAttack;
+    private static int baseSPDefense;
+    private static int baseSpeed;
+    private static string? image;
 
     protected override async Task OnInitializedAsync()
     {
-        // data == get JSON object from requested URL
-        var data = await Client.GetFromJsonAsync<JsonElement>(Client.BaseAddress + "/ditto");
+        bool getPokmon = true;
+        int currentIndex = 1;
+        do
+        {
+            try
+            {
 
-        //Set the string property above to the "name" property in the JSON object
-        name = data.GetProperty("name").ToString();
+                // data == get JSON object from requested URL
+                var data = await Client.GetFromJsonAsync<JsonElement>($"{Client.BaseAddress}/{currentIndex}");
+
+                //Set the string property above to the "name" property in the JSON object
+                name = data.GetProperty("name").ToString();
+
+                Pokemon pokemon = new Pokemon();
+                
+                currentPokemon.Add(pokemon);
+
+                //primary = Enum.TryParse((data.GetProperty("types[0].type.name").ToString().ToUpper());
+                currentIndex++;
+            }
+            catch (ArgumentNullException ane)
+            {
+                Console.WriteLine("No more Pokemon!");
+                getPokmon = false;
+            }
+
+        } while (getPokmon);
+
     }
 }

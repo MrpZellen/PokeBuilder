@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PokeBuilderMAUI.Shared.Models
 {
-    enum Type
+    public enum Type
     {
         TYPELESS,
         NORMAL,
