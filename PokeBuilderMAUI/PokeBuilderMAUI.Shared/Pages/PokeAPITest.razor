@@ -43,8 +43,7 @@
                 //Set the string property above to the "name" property in the JSON object
                 name = data.GetProperty("name").ToString();
 
-                Pokemon pokemon = new Pokemon();
-                
+                Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.GRASS, "cool", new string[4], 20, 20, 20, 20, 20, 20, "cool" );                
                 currentPokemon.Add(pokemon);
 
                 //primary = Enum.TryParse((data.GetProperty("types[0].type.name").ToString().ToUpper());
