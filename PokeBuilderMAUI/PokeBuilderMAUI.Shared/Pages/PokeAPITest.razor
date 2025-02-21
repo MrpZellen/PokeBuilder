@@ -1,39 +1,22 @@
 ﻿@page "/poke-api-test"
+@using PokeBuilderMAUI.Shared.Models
 @using System.Text.Json
 @using System.Text.Json.Serialization
 @inject HttpClient Client
 
 <h1>Call web API from a Blazor WebAssembly Razor component</h1>
 
-@if (getBranchesError || pokemons is null)
-{
-    <p>Unable to get branches from GitHub. Please try again later.</p>
-}
-else
-{
-    <ul>
-        @foreach (var branch in pokemons)
-        {
-            <li>@branch.Name</li>
-        }
-    </ul>
-}
+<h1>@name</h1>
 
 @code {
-    private IEnumerable<Pokemon>? pokemons = [];
-    private bool getBranchesError;
-    private bool shouldRender;
-
-    protected override bool ShouldRender() => shouldRender;
+    public string? name;
 
     protected override async Task OnInitializedAsync()
     {
-        pokemons = await Client.GetFromJsonAsync<Pokemon[]>("ditto");
-    }
+        // data == get JSON object from requested URL
+        var data = await Client.GetFromJsonAsync<JsonElement>(Client.BaseAddress + "/ditto");
 
-    public class Pokemon
-    {
-        [JsonPropertyName("name")]
-        public string? Name { get; set; }
+        //Set the string property above to the "name" property in the JSON object
+        name = data.GetProperty("name").ToString();
     }
 }
