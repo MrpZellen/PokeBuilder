@@ -13,7 +13,6 @@ namespace PokeBuilderMAUI
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 });
-
             builder.Services.AddMauiBlazorWebView();
 
             //test API calling
@@ -22,7 +21,6 @@ namespace PokeBuilderMAUI
                 {
                     BaseAddress = new Uri("https://pokeapi.co/api/v2/pokemon")
                 });
-
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();
             builder.Logging.AddDebug();

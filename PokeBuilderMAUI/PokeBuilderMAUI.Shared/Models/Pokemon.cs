@@ -31,6 +31,23 @@ namespace PokeBuilderMAUI.Shared.Models
 
     class Pokemon
     {
+        public Pokemon(bool isPopulated = true) {
+            if(!isPopulated)
+            {
+                Name = "Testasaur";
+                Primary = Type.GRASS;
+                Secondary = Type.TYPELESS;
+                Ability = "Overgrow";
+                Moves = ["Tackle", "Growl", "Leech Seed", "Vine Whip"];
+                BaseHealth = 45;
+                BaseAttack = 49;
+                BaseDefense = 49;
+                BaseSpAttack = 65;
+                BaseSpDefense = 65;
+                BaseSpeed = 45;
+                Image = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png";
+            }
+        }
         private static string? name;
 
         public readonly string? Name = name;
