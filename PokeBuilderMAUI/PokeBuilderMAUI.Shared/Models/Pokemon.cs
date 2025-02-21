@@ -31,7 +31,9 @@ namespace PokeBuilderMAUI.Shared.Models
 
     class Pokemon
     {
-        public readonly string? Name;
+        private static string? name;
+
+        public readonly string? Name = name;
         public readonly Type Primary;
         public readonly Type Secondary = Type.TYPELESS;
         public readonly string? Ability;
@@ -44,5 +46,15 @@ namespace PokeBuilderMAUI.Shared.Models
         public readonly int BaseSpDefense;
         public readonly int BaseSpeed;
         public readonly string? Image;
+
+        Pokemon GetPokemon(string name, Type primary, Type secondary,
+                            string ability, string[] moves, int baseHP,
+                            int baseATK, int baseDEF, int baseSPATK,
+                            int baseSPDEF, int baseSPD, string image)
+        {
+            moves = new string[4];
+
+            throw new NotImplementedException();
+        }
     }
 }
