@@ -4,12 +4,6 @@
 @using System.Text.Json.Serialization
 @inject HttpClient Client
 
-<h1>Call web API from a Blazor WebAssembly Razor component</h1>
-
-@foreach (Pokemon pokemon in currentPokemon){
-    <h1>@pokemon.Name</h1>
-}
-
 
 @code {
     private List<Pokemon> currentPokemon = new List<Pokemon>();
@@ -56,6 +50,8 @@
             }
 
         } while (getPokmon);
-
     }
+}
+@foreach (Pokemon pokemon in currentPokemon){
+<h1>@pokemon.Name</h1>
 }
