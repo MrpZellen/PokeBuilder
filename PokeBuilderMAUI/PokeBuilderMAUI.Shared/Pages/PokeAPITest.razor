@@ -1,0 +1,39 @@
+﻿@page "/poke-api-test"
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@inject HttpClient Client
+
+<h1>Call web API from a Blazor WebAssembly Razor component</h1>
+
+@if (getBranchesError || pokemons is null)
+{
+    <p>Unable to get branches from GitHub. Please try again later.</p>
+}
+else
+{
+    <ul>
+        @foreach (var branch in pokemons)
+        {
+            <li>@branch.Name</li>
+        }
+    </ul>
+}
+
+@code {
+    private IEnumerable<Pokemon>? pokemons = [];
+    private bool getBranchesError;
+    private bool shouldRender;
+
+    protected override bool ShouldRender() => shouldRender;
+
+    protected override async Task OnInitializedAsync()
+    {
+        pokemons = await Client.GetFromJsonAsync<Pokemon[]>("ditto");
+    }
+
+    public class Pokemon
+    {
+        [JsonPropertyName("name")]
+        public string? Name { get; set; }
+    }
+}
