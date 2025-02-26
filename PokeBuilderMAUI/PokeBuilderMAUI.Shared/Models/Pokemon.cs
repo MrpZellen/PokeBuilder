@@ -48,30 +48,44 @@ namespace PokeBuilderMAUI.Shared.Models
                 Image = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png";
             }
         }
-        private static string? name;
+        //private static string? name;
+        //private static Type primary;
+        //private static Type secondary = Type.TYPELESS;
+        //private static string? ability;
+        //private static List<string>? abilities;
+        //private static List<string> moves;
+        //private static string[] finalMoves = new string[4];
+        //private static int baseHealth;
+        //private static int baseAttack;
+        //private static int baseDefense;
+        //private static int baseSPAttack;
+        //private static int baseSPDefense;
+        //private static int baseSpeed;
+        //private static string? image;
 
-        public readonly string? Name = name;
-        public readonly Type Primary;
-        public readonly Type Secondary = Type.TYPELESS;
-        public readonly string? Ability;
-        public readonly List<string>? Abilities;
-        public readonly string[] Moves = new string[4];
-        public readonly int BaseHealth;
-        public readonly int BaseAttack;
-        public readonly int BaseDefense;
-        public readonly int BaseSpAttack;
-        public readonly int BaseSpDefense;
-        public readonly int BaseSpeed;
-        public readonly string? Image;
+        public string? Name { get; private set; }
+        public Type Primary { get; private set; }
+        public Type Secondary { get; private set; }
+        public string? Ability { get; private set; }
+        public string[] Moves { get; private set; }
+        public int BaseHealth { get; private set; }
+        public int BaseAttack { get; private set; }
+        public int BaseDefense { get; private set; }
+        public int BaseSpAttack { get; private set; }
+        public int BaseSpDefense { get; private set; }
+        public int BaseSpeed { get; private set; }
+        public string? Image { get; private set; }
 
-        Pokemon GetPokemon(string name, Type primary, Type secondary,
+        public Pokemon(string name, Type primary, Type secondary,
                             string ability, string[] moves, int baseHP,
                             int baseATK, int baseDEF, int baseSPATK,
                             int baseSPDEF, int baseSPD, string image)
         {
-            moves = new string[4];
-
-            throw new NotImplementedException();
+            Name = name; Primary = primary; Secondary = secondary;
+            Ability = ability; Moves = moves;
+            BaseHealth = baseHP; BaseAttack = baseATK; BaseDefense = baseDEF;
+            BaseSpAttack = baseSPATK; BaseSpDefense = baseSPDEF;
+            BaseSpeed = baseSPD; Image = image;
         }
     }
 }
