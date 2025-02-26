@@ -48,8 +48,9 @@ namespace PokeBuilderMAUI.Shared.Models
                 Image = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png";
             }
         }
-        private static string? name;
 
+        private static string? name { get; set; }
+        
         public readonly string? Name = name;
         public readonly Type Primary;
         public readonly Type Secondary = Type.TYPELESS;
@@ -63,15 +64,5 @@ namespace PokeBuilderMAUI.Shared.Models
         public readonly int BaseSpDefense;
         public readonly int BaseSpeed;
         public readonly string? Image;
-
-        Pokemon GetPokemon(string name, Type primary, Type secondary,
-                            string ability, string[] moves, int baseHP,
-                            int baseATK, int baseDEF, int baseSPATK,
-                            int baseSPDEF, int baseSPD, string image)
-        {
-            moves = new string[4];
-
-            throw new NotImplementedException();
-        }
     }
 }

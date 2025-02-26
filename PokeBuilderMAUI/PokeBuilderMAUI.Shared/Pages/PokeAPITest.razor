@@ -1,39 +1,76 @@
 ﻿@page "/poke-api-test"
 @using System.Text.Json
 @using System.Text.Json.Serialization
+@using PokeBuilderMAUI.Shared.Models
+@using Newtonsoft.Json.Linq;
 @inject HttpClient Client
 
 <h1>Call web API from a Blazor WebAssembly Razor component</h1>
 
-@if (getBranchesError || pokemons is null)
+@foreach (Pokemon pokemon in currentPokemon)
 {
-    <p>Unable to get branches from GitHub. Please try again later.</p>
-}
-else
-{
-    <ul>
-        @foreach (var branch in pokemons)
-        {
-            <li>@branch.Name</li>
-        }
-    </ul>
+    <h1>@pokemon.Name</h1>
 }
 
 @code {
-    private IEnumerable<Pokemon>? pokemons = [];
-    private bool getBranchesError;
-    private bool shouldRender;
-
-    protected override bool ShouldRender() => shouldRender;
+    private List<Pokemon> currentPokemon = new List<Pokemon>();
+    private static string? name;
+    private static Models.Type primary;
+    private static Models.Type secondary = Models.Type.TYPELESS;
+    private static string? ability;
+    private static List<string>? abilities;
+    private static List<string> moves;
+    private static string[] finalMoves = new string[4];
+    private static int baseHealth;
+    private static int baseAttack;
+    private static int baseDefense;
+    private static int baseSPAttack;
+    private static int baseSPDefense;
+    private static int baseSpeed;
+    private static string? image;
 
     protected override async Task OnInitializedAsync()
     {
-        pokemons = await Client.GetFromJsonAsync<Pokemon[]>("ditto");
+        bool getPokmon = true;
+        int currentIndex = 1;
+        do
+        {
+            try
+            {
+                Pokemon pokemon1 = new Pokemon(); 
+
+                // data == get JSON object from requested URL
+                HttpResponseMessage data = await Client.GetAsync($"{Client.BaseAddress}/{currentIndex}");
+
+                string content = await data.Content.ReadAsStringAsync();
+
+                JObject json = JObject.Parse(content);
+
+                //Set the string property above to the "name" property in the JSON object
+                //name = data.GetProperty("name").ToString();
+
+                string ability = json["abilities"][0]["ability"]["name"].ToString();
+
+                string name = json["name"].ToString();
+
+                Pokemon pokemon = new Pokemon();
+                
+                currentPokemon.Add(pokemon);
+
+                //primary = Enum.TryParse((data.GetProperty("types[0].type.name").ToString().ToUpper());
+                currentIndex++;
+            }
+            catch (ArgumentNullException ane)
+            {
+                Console.WriteLine("No more Pokemon!");
+                getPokmon = false;
+            }
+
+        } while (getPokmon);
+
     }
 
-    public class Pokemon
-    {
-        [JsonPropertyName("name")]
-        public string? Name { get; set; }
-    }
+
 }
+
+
