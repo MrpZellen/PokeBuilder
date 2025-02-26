@@ -49,20 +49,29 @@ namespace PokeBuilderMAUI.Shared.Models
             }
         }
 
-        private static string? name { get; set; }
-        
-        public readonly string? Name = name;
-        public readonly Type Primary;
-        public readonly Type Secondary = Type.TYPELESS;
-        public readonly string? Ability;
-        public readonly List<string>? Abilities;
-        public readonly string[] Moves = new string[4];
-        public readonly int BaseHealth;
-        public readonly int BaseAttack;
-        public readonly int BaseDefense;
-        public readonly int BaseSpAttack;
-        public readonly int BaseSpDefense;
-        public readonly int BaseSpeed;
-        public readonly string? Image;
+        public string? Name { get; private set; }
+        public Type Primary { get; private set; }
+        public Type Secondary { get; private set; }
+        public string? Ability { get; private set; }
+        public string[] Moves { get; private set; }
+        public int BaseHealth { get; private set; }
+        public int BaseAttack { get; private set; }
+        public int BaseDefense { get; private set; }
+        public int BaseSpAttack { get; private set; }
+        public int BaseSpDefense { get; private set; }
+        public int BaseSpeed { get; private set; }
+        public string? Image { get; private set; }
+
+        public Pokemon(string name, Type primary, Type secondary,
+                            string ability, string[] moves, int baseHP,
+                            int baseATK, int baseDEF, int baseSPATK,
+                            int baseSPDEF, int baseSPD, string image)
+        {
+            Name = name; Primary = primary; Secondary = secondary;
+            Ability = ability; Moves = moves;
+            BaseHealth = baseHP; BaseAttack = baseATK; BaseDefense = baseDEF;
+            BaseSpAttack = baseSPATK; BaseSpDefense = baseSPDEF;
+            BaseSpeed = baseSPD; Image = image;
+        }
     }
 }
