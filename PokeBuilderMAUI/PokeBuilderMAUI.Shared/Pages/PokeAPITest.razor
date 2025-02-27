@@ -5,31 +5,62 @@
 
 @inject HttpClient Client
 
-<h1>Call web API from a Blazor WebAssembly Razor component</h1>
+<h1>CHOOSE YOUR POKEMON!!!!!!</h1>
 
-@if (getBranchesError || pokemons is null)
-{
-    <p>Unable to get branches from GitHub. Please try again later.</p>
-}
-else
-{
-    <ul>
-        @foreach (var branch in pokemons)
-        {
-            <li>@branch.Name</li>
-        }
-    </ul>
-}
+
+
+<ul @onloadend=OnInitializedAsync>
+    @foreach (var pokemon in currentPokemon)
+    {
+        <li>
+            @pokemon.Name
+        </li>
+    }
+
+</ul>
+
 
 @code {
-    private IEnumerable<Pokemon>? pokemons = [];
-    private bool getBranchesError;
-    private bool shouldRender;
-
-    protected override bool ShouldRender() => shouldRender;
+    private List<Pokemon>? currentPokemon = [];
 
     protected override async Task OnInitializedAsync()
     {
-        pokemons = await Client.GetFromJsonAsync<Pokemon[]>("ditto");
+        bool getPokmon = true;
+        string name;
+        int currentIndex = 1;
+
+        while (getPokmon)
+        {
+            try
+            {
+                Console.WriteLine(currentIndex);
+
+                // data == get JSON object from requested URL
+
+                var data = await Client.GetFromJsonAsync<JsonElement>($"{Client.BaseAddress}/{currentIndex}");
+
+
+                //currentPokemon = await Client.GetFromJsonAsync<Pokemon[]>($"{Client.BaseAddress}/{currentIndex}");
+
+                //Set the string property above to the "name" property in the JSON object
+                name = data.GetProperty("name").ToString();
+
+
+                Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.GRASS, "cool", new string[4], 20, 20, 20, 20, 20, 20, "cool");
+                currentPokemon.Add(pokemon);
+                //currentPokemon.ElementAt(currentIndex - 1).Name = name;
+
+                //primary = Enum.TryParse((data.GetProperty("types[0].type.name").ToString().ToUpper());
+                currentIndex++;
+            }
+            catch(Exception notFound)
+            {
+                await InvokeAsync(StateHasChanged);
+                return;
+            }
+        }
+        
+       
+
     }
 }

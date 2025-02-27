@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace PokeBuilderMAUI.Shared.Models
 {
@@ -63,7 +59,8 @@ namespace PokeBuilderMAUI.Shared.Models
         //private static int baseSpeed;
         //private static string? image;
 
-        public string? Name { get; private set; }
+        [JsonPropertyName("name")]
+        public string? Name { get; set; }
         public Type Primary { get; private set; }
         public Type Secondary { get; private set; }
         public string? Ability { get; private set; }
