@@ -9,13 +9,13 @@
 
 <h1>CHOOSE YOUR POKEMON!!!!!!</h1>
 
-@if (getPokmon){
+@if (getPokemon){
 
-    <p>Loading Pokemon #@currentIndex</p>
+    <p>Loading Pokemon #@(currentIndex - 1)</p>
 }
 
 <ul @onloadend=OnInitializedAsync>
-    @foreach (var pokemon in currentPokemon)
+    @foreach (var pokemon in Pokemon.AllPokemon)
     {
         <li>
             @pokemon.Name
@@ -26,12 +26,26 @@
 
 
 @code {
-    private List<Pokemon>? currentPokemon = [];
-    private int currentIndex = 1;
-    private bool getPokmon = true;
+
+    private static int currentIndex = 1;
+    private bool getPokemon = true;
     protected override async Task OnInitializedAsync()
     {
-        while (getPokmon)
+        if (Pokemon.AllPokemon != null)
+        {
+            //hardcoded cap to check to keep loading pokemon
+            if (currentIndex > 2000)
+            {
+                getPokemon = false;
+                await InvokeAsync(StateHasChanged);
+            }
+
+        }
+        else
+        {
+            Pokemon.AllPokemon = new List<Pokemon>();
+        }
+        while (getPokemon)
         {
             try
             {
@@ -58,7 +72,7 @@
 
                 //Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.GRASS, "cool", new string[4], 20, 20, 20, 20, 20, 20, "cool");
 
-                currentPokemon.Add(pokemon);
+                Pokemon.AllPokemon.Add(pokemon);
 
 
                 //primary = Enum.TryParse((data.GetProperty("types[0].type.name").ToString().ToUpper());
@@ -68,7 +82,7 @@
             }
             catch(Exception notFound)
             {
-                getPokmon = false;
+                getPokemon = false;
                 await InvokeAsync(StateHasChanged);
             }
         }
