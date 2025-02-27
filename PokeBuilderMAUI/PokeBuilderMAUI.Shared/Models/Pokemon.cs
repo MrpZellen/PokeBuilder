@@ -2,6 +2,7 @@
 
 namespace PokeBuilderMAUI.Shared.Models
 {
+    
     enum Type
     {
         TYPELESS,
@@ -27,6 +28,7 @@ namespace PokeBuilderMAUI.Shared.Models
 
     class Pokemon
     {
+        public static List<Pokemon> AllPokemon { get; set; } = null;
         public Pokemon(bool isPopulated = true) {
             if(!isPopulated)
             {
