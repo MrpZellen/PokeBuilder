@@ -2,79 +2,65 @@
 @using System.Text.Json
 @using System.Text.Json.Serialization
 @using PokeBuilderMAUI.Shared.Models
-@using Newtonsoft.Json.Linq
+
 @inject HttpClient Client
 
-<h1>Call web API from a Blazor WebAssembly Razor component</h1>
+<h1>CHOOSE YOUR POKEMON!!!!!!</h1>
 
-@foreach (Pokemon pokemon in currentPokemon)
-{
-    <h1>@pokemon.Name</h1>
-}
+
+
+<ul @onloadend=OnInitializedAsync>
+    @foreach (var pokemon in currentPokemon)
+    {
+        <li>
+            @pokemon.Name
+        </li>
+    }
+
+</ul>
+
 
 @code {
-    private List<Pokemon> currentPokemon = new List<Pokemon>();
-    private static string? name;
-    private static Models.Type primary;
-    private static Models.Type secondary = Models.Type.TYPELESS;
-    private static string? ability;
-    private static List<string>? abilities;
-    private static List<string> moves;
-    private static string[] finalMoves = new string[4];
-    private static int baseHealth;
-    private static int baseAttack;
-    private static int baseDefense;
-    private static int baseSPAttack;
-    private static int baseSPDefense;
-    private static int baseSpeed;
-    private static string? image;
+    private List<Pokemon>? currentPokemon = [];
 
     protected override async Task OnInitializedAsync()
     {
         bool getPokmon = true;
+        string name;
         int currentIndex = 1;
-        do
+
+        while (getPokmon)
         {
             try
             {
-                Pokemon pokemon1 = new Pokemon(); 
+                Console.WriteLine(currentIndex);
 
                 // data == get JSON object from requested URL
-                HttpResponseMessage data = await Client.GetAsync($"{Client.BaseAddress}/{currentIndex}");
 
-                string content = await data.Content.ReadAsStringAsync();
+                var data = await Client.GetFromJsonAsync<JsonElement>($"{Client.BaseAddress}/{currentIndex}");
 
-                JObject json = JObject.Parse(content);
+
+                //currentPokemon = await Client.GetFromJsonAsync<Pokemon[]>($"{Client.BaseAddress}/{currentIndex}");
 
                 //Set the string property above to the "name" property in the JSON object
-                //name = data.GetProperty("name").ToString();
+                name = data.GetProperty("name").ToString();
 
-                string ability = json["abilities"][0]["ability"]["name"].ToString();
 
-                string name = json["name"].ToString();
-
-                string[] finalMoves = new string[4];
-                finalMoves[0] = "tackle";
-                finalMoves[1] = "leech seed";
-                finalMoves[2] = "growl";
-                finalMoves[3] = "rest";
-
-                Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.POISON, ability, finalMoves, 50, 50, 50, 50, 50, 50, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png");
-                
+                Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.GRASS, "cool", new string[4], 20, 20, 20, 20, 20, 20, "cool");
                 currentPokemon.Add(pokemon);
+                //currentPokemon.ElementAt(currentIndex - 1).Name = name;
 
                 //primary = Enum.TryParse((data.GetProperty("types[0].type.name").ToString().ToUpper());
                 currentIndex++;
             }
-            catch (ArgumentNullException ane)
+            catch(Exception notFound)
             {
-                Console.WriteLine("No more Pokemon!");
-                getPokmon = false;
+                await InvokeAsync(StateHasChanged);
+                return;
             }
-
-        } while (getPokmon);
+        }
+        
+       
 
     }
 }
-
-
