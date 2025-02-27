@@ -7,7 +7,10 @@
 
 <h1>CHOOSE YOUR POKEMON!!!!!!</h1>
 
+@if (getPokmon){
 
+    <p>Loading Pokemon #@currentIndex</p>
+}
 
 <ul @onloadend=OnInitializedAsync>
     @foreach (var pokemon in currentPokemon)
@@ -22,19 +25,18 @@
 
 @code {
     private List<Pokemon>? currentPokemon = [];
-
+    private int currentIndex = 1;
+    private bool getPokmon = true;
     protected override async Task OnInitializedAsync()
     {
-        bool getPokmon = true;
+        
         string name;
-        int currentIndex = 1;
+
 
         while (getPokmon)
         {
             try
             {
-                Console.WriteLine(currentIndex);
-
                 // data == get JSON object from requested URL
 
                 var data = await Client.GetFromJsonAsync<JsonElement>($"{Client.BaseAddress}/{currentIndex}");
@@ -52,11 +54,12 @@
 
                 //primary = Enum.TryParse((data.GetProperty("types[0].type.name").ToString().ToUpper());
                 currentIndex++;
+                await InvokeAsync(StateHasChanged);
             }
             catch(Exception notFound)
             {
+                getPokmon = false;
                 await InvokeAsync(StateHasChanged);
-                return;
             }
         }
         
