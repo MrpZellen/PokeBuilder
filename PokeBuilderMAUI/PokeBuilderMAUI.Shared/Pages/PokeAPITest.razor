@@ -2,6 +2,8 @@
 @using System.Text.Json
 @using System.Text.Json.Serialization
 @using PokeBuilderMAUI.Shared.Models
+@using Newtonsoft.Json.Linq
+
 
 @inject HttpClient Client
 
@@ -29,30 +31,38 @@
     private bool getPokmon = true;
     protected override async Task OnInitializedAsync()
     {
-        
-        string name;
-
-
         while (getPokmon)
         {
             try
             {
-                // data == get JSON object from requested URL
+                // data == get JSON object from requested URL\
 
-                var data = await Client.GetFromJsonAsync<JsonElement>($"{Client.BaseAddress}/{currentIndex}");
+                //var data = await Client.GetFromJsonAsync<JsonElement>($"{Client.BaseAddress}/{currentIndex}")
+                HttpResponseMessage data = await Client.GetAsync($"{Client.BaseAddress}/{currentIndex}");
+                
+                string content = await data.Content.ReadAsStringAsync();
+                JObject json = JObject.Parse(content);
 
+                //Set the string properties in the JSON object
+                
+                string ability = json["abilities"][0]["ability"]["name"].ToString();
+                string name = json["name"].ToString();
 
-                //currentPokemon = await Client.GetFromJsonAsync<Pokemon[]>($"{Client.BaseAddress}/{currentIndex}");
+                string[] finalMoves = new string[4];
+                finalMoves[0] = "tackle";
+                finalMoves[1] = "leech seed";
+                finalMoves[2] = "growl";
+                finalMoves[3] = "rest";
 
-                //Set the string property above to the "name" property in the JSON object
-                name = data.GetProperty("name").ToString();
+                Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.POISON, ability, finalMoves, 50, 50, 50, 50, 50, 50, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png");
 
+                //Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.GRASS, "cool", new string[4], 20, 20, 20, 20, 20, 20, "cool");
 
-                Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.GRASS, "cool", new string[4], 20, 20, 20, 20, 20, 20, "cool");
                 currentPokemon.Add(pokemon);
-                //currentPokemon.ElementAt(currentIndex - 1).Name = name;
+
 
                 //primary = Enum.TryParse((data.GetProperty("types[0].type.name").ToString().ToUpper());
+
                 currentIndex++;
                 await InvokeAsync(StateHasChanged);
             }
