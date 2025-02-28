@@ -46,7 +46,6 @@ namespace PokeBuilderMAUI.Shared.Models
                 Image = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png";
             }
         }
-        private static string? name;
 
         public string? Name { get; set; }
         public Type Primary { get; private set; }

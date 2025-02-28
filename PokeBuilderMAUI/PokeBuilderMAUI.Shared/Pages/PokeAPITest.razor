@@ -59,11 +59,69 @@
 
                 //Set the string properties in the JSON object
 
-                string[] ability = new string[] {
-                    json["abilities"][0]["ability"]["name"].ToString()
-                };
-           
                 string name = json["name"].ToString();
+
+                Models.Type primary = Enum.TryParse((json["types"][0]["type"]["name"].ToString().ToUpper()), out primary) ? primary : Models.Type.TYPELESS;
+
+                Models.Type secondary = Models.Type.TYPELESS;
+                try
+                {
+                    secondary = Enum.TryParse((json["types"][1]["type"]["name"].ToString().ToUpper()), out secondary) ? secondary : Models.Type.TYPELESS;
+                }
+                catch (ArgumentOutOfRangeException aoore)
+                {
+                    secondary = Models.Type.TYPELESS;
+                };
+                
+             
+
+                List<string> abilities = new List<string>();
+                bool hasMoreAbilities = true;
+                int a = 0;
+                do
+                {
+                    string ability = "null";
+
+                    try
+                    {
+                        ability = json["abilities"][a]["ability"]["name"].ToString();
+                    }
+                    catch (ArgumentOutOfRangeException aoore)
+                    {
+                        hasMoreAbilities = false;
+                    };
+
+                    if (hasMoreAbilities)
+                    {
+                        abilities.Add(ability);
+                        a++;
+                    }
+                }
+                while (hasMoreAbilities);
+
+                List<string> moves = new List<string>();
+                bool hasMoreMoves = true;
+                int m = 0;
+                do
+                {
+                    string move = "null";
+
+                    try
+                    {
+                        move = json["moves"][m]["move"]["name"].ToString();
+                    }
+                    catch (ArgumentOutOfRangeException aoore)
+                    {
+                        hasMoreMoves = false;
+                    };
+
+                    if (hasMoreMoves)
+                    {
+                        moves.Add(move);
+                        m++;
+                    }
+                }
+                while (hasMoreMoves);
 
                 string[] finalMoves = new string[4];
                 finalMoves[0] = "tackle";
@@ -71,7 +129,7 @@
                 finalMoves[2] = "growl";
                 finalMoves[3] = "rest";
 
-                Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.POISON, ability, finalMoves, 50, 50, 50, 50, 50, 50, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png");
+                Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.POISON, "Overgrow", finalMoves, 50, 50, 50, 50, 50, 50, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png");
 
                 //Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.GRASS, "cool", new string[4], 20, 20, 20, 20, 20, 20, "cool");
 
@@ -79,7 +137,7 @@
 
 
                 //primary = Enum.TryParse((data.GetProperty("types[0].type.name").ToString().ToUpper());
-                  
+
                 currentIndex++;
                 await InvokeAsync(StateHasChanged);
             }
