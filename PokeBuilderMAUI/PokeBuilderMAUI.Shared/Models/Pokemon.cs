@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace PokeBuilderMAUI.Shared.Models
+﻿namespace PokeBuilderMAUI.Shared.Models
 {
     
     enum Type
@@ -28,25 +26,7 @@ namespace PokeBuilderMAUI.Shared.Models
 
     class Pokemon
     {
-        public static List<Pokemon> AllPokemon { get; set; } = null;
-        public Pokemon(bool isPopulated = true) {
-            if(!isPopulated)
-            {
-                Name = "Testasaur";
-                Primary = Type.GRASS;
-                Secondary = Type.TYPELESS;
-                Ability = "Overgrow";
-                Moves = ["Tackle", "Growl", "Leech Seed", "Vine Whip"];
-                BaseHealth = 45;
-                BaseAttack = 49;
-                BaseDefense = 49;
-                BaseSpAttack = 65;
-                BaseSpDefense = 65;
-                BaseSpeed = 45;
-                Image = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png";
-            }
-        }
-
+    
         public string? Name { get; set; }
         public Type Primary { get; private set; }
         public Type Secondary { get; private set; }
@@ -60,7 +40,29 @@ namespace PokeBuilderMAUI.Shared.Models
         public int BaseSpeed { get; private set; }
         public string? Image { get; private set; }
 
-        public Pokemon(string name, Type primary, Type secondary,
+    public Pokemon(string name, int id)
+    {
+        Name = name;
+    }
+    public Pokemon(bool isPopulated = true)
+    {
+        if (!isPopulated)
+        {
+            Name = "Testasaur";
+            Primary = Type.GRASS;
+            Secondary = Type.TYPELESS;
+            Ability = "Overgrow";
+            Moves = ["Tackle", "Growl", "Leech Seed", "Vine Whip"];
+            BaseHealth = 45;
+            BaseAttack = 49;
+            BaseDefense = 49;
+            BaseSpAttack = 65;
+            BaseSpDefense = 65;
+            BaseSpeed = 45;
+            Image = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png";
+        }
+    }
+    public Pokemon(string name, Type primary, Type secondary,
                             string ability, string[] moves, int baseHP,
                             int baseATK, int baseDEF, int baseSPATK,
                             int baseSPDEF, int baseSPD, string image)
