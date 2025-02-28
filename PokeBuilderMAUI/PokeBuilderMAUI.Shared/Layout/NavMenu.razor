@@ -1,39 +1,43 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿<div class="top-row navbar bg-dark navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">PokeBuilderMAUI</a>
+        <a class="navbar-brand  align-content-center d-flex justify-content-around" href="">
+            <img class="logoSize d-inline-block" width="30" height="30" src="_content/PokeBuilderMAUI.Shared/PokeBuilderSmall.png" alt="PokeBuilder" />
+            <p class="ps-2 inconsolata-dark">PokeBuilder!</p>
+        </a>
     </div>
 </div>
 
 <input type="checkbox" title="Navigation menu" class="navbar-toggler" />
 
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
+<div class="nav-scrollable bg-pokeblue" onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="flex-column">
-        <div class="nav-item px-3">
+        <div class="nav-item px-3 inconsolata-bold">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+                <span aria-hidden="true"></span> Home
             </NavLink>
         </div>
-        <div class="nav-item px-3">
+        <div class="nav-item px-3 inconsolata-bold">
             <NavLink class="nav-link" href="login">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Login
+                <span aria-hidden="true"></span> Login
             </NavLink>
         </div>
-        <div class="nav-item px-3">
+        <div class="nav-item px-3 inconsolata-bold">
             <NavLink class="nav-link" href="poke-api-test">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> PokeAPITest
+                <span aria-hidden="true"></span> PokeAPITest
             </NavLink>
         </div>
-        <div class="nav-item px-3">
+        <div class="nav-item px-3 inconsolata-bold">
             <NavLink class="nav-link" href="pokedex">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Pokedex
+                <span aria-hidden="true"></span> Pokedex
             </NavLink>
         </div>
 
-        <div class="nav-item px-3">
+        <div class="nav-item px-3 inconsolata-bold">
             <NavLink class="nav-link" href="team-manager">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Team Manager
+                <span aria-hidden="true"></span> Team Manager
             </NavLink>
         </div>
     </nav>
 </div>
+
 

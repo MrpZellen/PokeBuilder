@@ -30,7 +30,8 @@ namespace PokeBuilderMAUI.Shared.Models
     {
         public static List<Pokemon> AllPokemon { get; set; } = null;
         public Pokemon(bool isPopulated = true) {
-            if(!isPopulated)
+            Id = _nextId++;
+            if (!isPopulated)
             {
                 Name = "Testasaur";
                 Primary = Type.GRASS;
@@ -46,6 +47,8 @@ namespace PokeBuilderMAUI.Shared.Models
                 Image = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png";
             }
         }
+        public int Id { get; private set; }
+        private int _nextId = 0;
 
         [JsonPropertyName("name")]
         public string? Name { get; set; }

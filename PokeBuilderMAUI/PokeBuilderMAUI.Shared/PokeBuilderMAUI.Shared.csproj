@@ -1,18 +1,23 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
-
+<Project Sdk="Microsoft.NET.Sdk.Razor;Microsoft.NET.Sdk.Publish">
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
+  <ItemGroup>
+    <Content Remove="wwwroot\favicon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\Styles\Site.css" />
+  </ItemGroup>
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
-
+  <ItemGroup>
+    <Resource Include="wwwroot\favicon.png" />
+  </ItemGroup>
 </Project>
