@@ -1,7 +1,80 @@
 ﻿@page "/pokedex"
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@using PokeBuilderMAUI.Shared.Models
+@using Newtonsoft.Json.Linq
+@inject HttpClient Client
 
-<h3>Pokedex</h3>
-<_PokemonPartial />
+<h1>CHOOSE YOUR POKEMON!!!!!!</h1>
+
+@if (getPokemon)
+{
+    <p>Loading Pokemon #@(currentIndex - 1)</p>
+}
+
+<ul @onloadend=OnInitializedAsync>
+    @foreach (var pokemon in PokemonInitializer.AllPokemon)
+    {
+        <li>
+            @pokemon.Name
+        </li>
+    }
+
+</ul>
+
+
 @code {
 
+    private static int currentIndex = 1;
+    private bool getPokemon = true;
+    protected override async Task OnInitializedAsync()
+    {
+        if (PokemonInitializer.AllPokemon != null)
+        {
+            //hardcoded cap to check to keep loading pokemon
+            if (currentIndex > 2000)
+            {
+                getPokemon = false;
+                await InvokeAsync(StateHasChanged);
+            }
+
+        }
+        else
+        {
+            PokemonInitializer.AllPokemon = new List<Pokemon>();
+        }
+        while (getPokemon)
+        {
+            try
+            {
+                // data == get JSON object from requested URL\
+
+                //var data = await Client.GetFromJsonAsync<JsonElement>($"{Client.BaseAddress}/{currentIndex}")
+                HttpResponseMessage data = await Client.GetAsync($"{Client.BaseAddress}/{currentIndex}");
+
+                string content = await data.Content.ReadAsStringAsync();
+                JObject json = JObject.Parse(content);
+
+                //Set the string properties in the JSON object
+
+                string name = json["name"].ToString();
+
+                Pokemon pokemon = new Pokemon(name, currentIndex);
+
+                PokemonInitializer.AllPokemon.Add(pokemon);
+
+
+                currentIndex++;
+                await InvokeAsync(StateHasChanged);
+            }
+            catch (Exception notFound)
+            {
+                getPokemon = false;
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+
+
+
+    }
 }
