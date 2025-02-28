@@ -3,42 +3,43 @@
 @code {
     private Pokemon? pokemon = new Pokemon(false);
 }
-
-<div>
-    <div class="model-image">
-        <img src="@pokemon.Image" />
-    </div>
-    <div class="model-name">
-        <label>@pokemon.Name</label>
-        <label>@pokemon.Ability</label>
-    </div>
-    <div class="model-types">
-        <label>@pokemon.Primary</label>
-        @if (pokemon.Secondary != Models.Type.TYPELESS)
-        {
-            <label>@pokemon.Secondary</label>
-        }
-    </div>
-    <div class="model-moves">
-        <div class="moves-top">
-            <label>@pokemon.Moves[0]</label>
-            <label>@pokemon.Moves[1]</label>
+<div class="card" style="width: 18rem;">
+    <img src="@pokemon.Image" class="card-img-top" alt="Photo of @pokemon.Name">
+    <div class="card-body">
+        <div class="model-name card-title">
+            <label>@pokemon.Name  NO.@pokemon.Id</label>
         </div>
-        <div class="moves-bottom">
-            <label>@pokemon.Moves[2]</label>
-            <label>@pokemon.Moves[3]</label>
+        <div class="model-types card-subtitle">
+            <label>@pokemon.Ability</label>
+            <label>@pokemon.Primary</label>
+            @if (pokemon.Secondary != Models.Type.TYPELESS)
+            {
+                <label>@pokemon.Secondary</label>
+            }
         </div>
-    </div>
-    <div class="model-stats">
-        <div class="stats-top">
-            <label>HP: @pokemon.BaseHealth</label>
-            <label>ATK: @pokemon.BaseAttack</label>
-            <label>DEF: @pokemon.BaseDefense</label>
-        </div>
-        <div class="stats-bottom">
-            <label>SPD: @pokemon.BaseSpeed</label>
-            <label>SPATK: @pokemon.BaseSpAttack</label>
-            <label>SPDEF: @pokemon.BaseSpDefense</label>
+        <ul class="list-group list-group-flush">
+            <li class="model-moves list-group-item card-text">
+                <div class="moves-top">
+                    <label>@pokemon.Moves[0]</label>
+                    <label>@pokemon.Moves[1]</label>
+                </div>
+                <div class="moves-bottom">
+                    <label>@pokemon.Moves[2]</label>
+                    <label>@pokemon.Moves[3]</label>
+                </div>
+            </li>
+        </ul>
+        <div class="model-stats card-text">
+            <div class="stats-top">
+                <label>HP: @pokemon.BaseHealth</label>
+                <label>ATK: @pokemon.BaseAttack</label>
+                <label>DEF: @pokemon.BaseDefense</label>
+            </div>
+            <div class="stats-bottom">
+                <label>SPD: @pokemon.BaseSpeed</label>
+                <label>SPATK: @pokemon.BaseSpAttack</label>
+                <label>SPDEF: @pokemon.BaseSpDefense</label>
+            </div>
         </div>
     </div>
 </div>
