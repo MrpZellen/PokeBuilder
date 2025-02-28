@@ -53,13 +53,16 @@
 
                 //var data = await Client.GetFromJsonAsync<JsonElement>($"{Client.BaseAddress}/{currentIndex}")
                 HttpResponseMessage data = await Client.GetAsync($"{Client.BaseAddress}/{currentIndex}");
-                
+
                 string content = await data.Content.ReadAsStringAsync();
                 JObject json = JObject.Parse(content);
 
                 //Set the string properties in the JSON object
-                
-                string ability = json["abilities"][0]["ability"]["name"].ToString();
+
+                string[] ability = new string[] {
+                    json["abilities"][0]["ability"]["name"].ToString()
+                };
+           
                 string name = json["name"].ToString();
 
                 string[] finalMoves = new string[4];
@@ -76,7 +79,7 @@
 
 
                 //primary = Enum.TryParse((data.GetProperty("types[0].type.name").ToString().ToUpper());
-
+                  
                 currentIndex++;
                 await InvokeAsync(StateHasChanged);
             }

@@ -48,11 +48,10 @@ namespace PokeBuilderMAUI.Shared.Models
         }
         private static string? name;
 
-        [JsonPropertyName("name")]
         public string? Name { get; set; }
         public Type Primary { get; private set; }
         public Type Secondary { get; private set; }
-        public string? Ability { get; private set; }
+        public string Ability { get; private set; }
         public string[] Moves { get; private set; }
         public int BaseHealth { get; private set; }
         public int BaseAttack { get; private set; }
