@@ -1,0 +1,79 @@
+﻿@page "/poke-api-test"
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@using PokeBuilderMAUI.Shared.Models
+@using Newtonsoft.Json.Linq
+
+
+@inject HttpClient Client
+
+<h1>CHOOSE YOUR POKEMON!!!!!!</h1>
+
+@if (getPokmon){
+
+    <p>Loading Pokemon #@currentIndex</p>
+}
+
+<ul @onloadend=OnInitializedAsync>
+    @foreach (var pokemon in currentPokemon)
+    {
+        <li>
+            @pokemon.Name
+        </li>
+    }
+
+</ul>
+
+
+@code {
+    private List<Pokemon>? currentPokemon = [];
+    private int currentIndex = 1;
+    private bool getPokmon = true;
+    protected override async Task OnInitializedAsync()
+    {
+        while (getPokmon)
+        {
+            try
+            {
+                // data == get JSON object from requested URL\
+
+                //var data = await Client.GetFromJsonAsync<JsonElement>($"{Client.BaseAddress}/{currentIndex}")
+                HttpResponseMessage data = await Client.GetAsync($"{Client.BaseAddress}/{currentIndex}");
+                
+                string content = await data.Content.ReadAsStringAsync();
+                JObject json = JObject.Parse(content);
+
+                //Set the string properties in the JSON object
+                
+                string ability = json["abilities"][0]["ability"]["name"].ToString();
+                string name = json["name"].ToString();
+
+                string[] finalMoves = new string[4];
+                finalMoves[0] = "tackle";
+                finalMoves[1] = "leech seed";
+                finalMoves[2] = "growl";
+                finalMoves[3] = "rest";
+
+                Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.POISON, ability, finalMoves, 50, 50, 50, 50, 50, 50, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png");
+
+                //Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.GRASS, "cool", new string[4], 20, 20, 20, 20, 20, 20, "cool");
+
+                currentPokemon.Add(pokemon);
+
+
+                //primary = Enum.TryParse((data.GetProperty("types[0].type.name").ToString().ToUpper());
+
+                currentIndex++;
+                await InvokeAsync(StateHasChanged);
+            }
+            catch(Exception notFound)
+            {
+                getPokmon = false;
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+        
+       
+
+    }
+}
