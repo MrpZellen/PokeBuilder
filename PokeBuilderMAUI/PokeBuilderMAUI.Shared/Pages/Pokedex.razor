@@ -9,7 +9,12 @@
 
 @if (getPokemon)
 {
-    <p>Loading Pokemon #@(currentIndex - 1)</p>
+    <p>Loading Pokemon #@(currentIndex)</p>
+}
+else
+{
+    <h2>Search</h2>
+    <input  type="text" value="@userSearch"/>
 }
 
 <ul @onloadend=OnInitializedAsync>
@@ -25,6 +30,7 @@
 
 @code {
 
+    private string userSearch = "";
     private static int currentIndex = 1;
     private bool getPokemon = true;
     protected override async Task OnInitializedAsync()
@@ -76,5 +82,18 @@
 
 
 
+    }
+    private void SearchPokemon(string userInput)
+    {
+        
+        @foreach (var pokemon in PokemonInitializer.AllPokemon)
+        {
+            if (pokemon.Name.Contains(userInput))
+            {
+            
+                
+            }
+        }
+        
     }
 }
