@@ -1,4 +1,5 @@
 using PokeBuilderMAUI.Web.Components;
+using PokeBuilderMAUI.Shared.Models;
 namespace PokeBuilderMAUI.Web
 {
     public class Program
@@ -11,12 +12,17 @@ namespace PokeBuilderMAUI.Web
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
-            //test API calling
+            //API calling
             builder.Services.AddScoped(sp =>
                 new HttpClient
                 {
                     BaseAddress = new Uri("https://pokeapi.co/api/v2/pokemon")
                 });
+
+            //Cascading values for Pokemon Partial
+            builder.Services.AddCascadingValue(sp =>
+                new Pokemon { Name = "test"}
+            );
 
             var app = builder.Build();
 

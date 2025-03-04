@@ -14,13 +14,18 @@
     <p>Loading Pokemon #@currentIndex</p>
 }
 
-<div @onloadend=OnInitializedAsync>
+<p>
     @foreach (var pokemon in currentPokemon)
     {
-        <_PokemonPartial pokemon="pokemon" />
+        <CascadingValue Value="@pokemon" Name="pokemon">
+            <ChildContent>
+                <_PokemonPartial />
+            </ChildContent>
+        </CascadingValue>
+
     }
 
-</div>
+</p>
 
 
 @code {
