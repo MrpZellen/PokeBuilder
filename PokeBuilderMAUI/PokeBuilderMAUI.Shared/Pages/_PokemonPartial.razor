@@ -1,8 +1,29 @@
 ﻿@using PokeBuilderMAUI.Shared.Models
 
 @code {
-    private Pokemon? pokemon = new Pokemon(false);
+    [Parameter]
+    public RenderFragment pokedexInfo { get; set; }
+    public IPokedex? currentDex { get; private set; }
+
+    public void AddPokemon(IPokedex entry)
+    {
+        if (currentDex is null)
+        {
+            SetCurrentPokemon(entry);
+        }
+    }
+
+    public void SetCurrentPokemon(IPokedex entry)
+    {
+        if (currentDex != entry)
+        {
+            currentDex = entry;
+            StateHasChanged();
+        }
+    }
+
 }
+<<<<<<< Updated upstream
 
 <div>
     <div class="model-image">
@@ -23,12 +44,21 @@
         <div class="moves-top">
             <label>@pokemon.Moves[0]</label>
             <label>@pokemon.Moves[1]</label>
+=======
+<CascadingValue Value="this">
+@* <div class="card" style="width: 18rem;">
+    <img src="@pokemon.Image" class="card-img-top" alt="Photo of @pokemon.Name">
+    <div class="card-body">
+        <div class="model-name card-title">
+            <label> @pokemon.Name  NO.@pokemon.Id</label>
+>>>>>>> Stashed changes
         </div>
         <div class="moves-bottom">
             <label>@pokemon.Moves[2]</label>
             <label>@pokemon.Moves[3]</label>
         </div>
     </div>
+<<<<<<< Updated upstream
     <div class="model-stats">
         <div class="stats-top">
             <label>HP: @pokemon.BaseHealth</label>
@@ -42,3 +72,7 @@
         </div>
     </div>
 </div>
+=======
+</div> *@
+</CascadingValue>
+>>>>>>> Stashed changes

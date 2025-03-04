@@ -1,6 +1,11 @@
 using PokeBuilderMAUI.Web.Components;
+<<<<<<< Updated upstream
 using BootstrapBlazor.Components;
 namespace PokeBuilderMAUI
+=======
+using PokeBuilderMAUI.Shared.Models;
+namespace PokeBuilderMAUI.Web
+>>>>>>> Stashed changes
 {
     public class Program
     {
@@ -12,12 +17,17 @@ namespace PokeBuilderMAUI
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
-            //test API calling
+            //API calling
             builder.Services.AddScoped(sp =>
                 new HttpClient
                 {
                     BaseAddress = new Uri("https://pokeapi.co/api/v2/pokemon")
                 });
+
+            //Cascading values for Pokemon Partial
+            builder.Services.AddCascadingValue( sp => 
+                new Pokemon { Name = "initialized"}
+            );
 
             var app = builder.Build();
 
