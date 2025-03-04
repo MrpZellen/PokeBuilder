@@ -2,7 +2,8 @@
 
 namespace PokeBuilderMAUI.Shared.Models
 {
-    enum Type
+    
+    public enum Type
     {
         TYPELESS,
         NORMAL,
@@ -25,9 +26,31 @@ namespace PokeBuilderMAUI.Shared.Models
         POISON
     }
 
-    class Pokemon
+    public class Pokemon
     {
-        public Pokemon(bool isPopulated = true) {
+        
+        public int Id { get; private set; }
+        private int _nextId = 0;
+        public string? Name { get; set; }
+        public Type Primary { get; private set; }
+        public Type Secondary { get; private set; }
+        public string? Ability { get; private set; }
+        public string[] Moves { get; private set; }
+        public int BaseHealth { get; private set; }
+        public int BaseAttack { get; private set; }
+        public int BaseDefense { get; private set; }
+        public int BaseSpAttack { get; private set; }
+        public int BaseSpDefense { get; private set; }
+        public int BaseSpeed { get; private set; }
+        public string? Image { get; private set; }
+
+        public Pokemon(string name, int id)
+        {
+            Name = name;
+            Id = id;
+        }
+        public Pokemon(bool isPopulated = true)
+        {
             Id = _nextId++;
             if (!isPopulated)
             {
@@ -45,23 +68,6 @@ namespace PokeBuilderMAUI.Shared.Models
                 Image = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png";
             }
         }
-        public int Id { get; private set; }
-        private int _nextId = 0;
-
-        [JsonPropertyName("name")]
-        public string? Name { get; set; }
-        public Type Primary { get; private set; }
-        public Type Secondary { get; private set; }
-        public string? Ability { get; private set; }
-        public string[] Moves { get; private set; }
-        public int BaseHealth { get; private set; }
-        public int BaseAttack { get; private set; }
-        public int BaseDefense { get; private set; }
-        public int BaseSpAttack { get; private set; }
-        public int BaseSpDefense { get; private set; }
-        public int BaseSpeed { get; private set; }
-        public string? Image { get; private set; }
-
         public Pokemon(string name, Type primary, Type secondary,
                             string ability, string[] moves, int baseHP,
                             int baseATK, int baseDEF, int baseSPATK,
