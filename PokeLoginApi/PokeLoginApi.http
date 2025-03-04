@@ -70,6 +70,7 @@ POST {{PokeLoginApi_HostAddress}}/api/user?id={{id}}
 
 ###
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
 
 POST {{PokeLoginApi_HostAddress}}/api/user
@@ -89,4 +90,6 @@ Content-Type: application/json
 }
 
 ###
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
