@@ -97,6 +97,8 @@
                 }
                 while (hasMoreAbilities);
 
+
+
                 List<string> moves = new List<string>();
                 bool hasMoreMoves = true;
                 int m = 0;
@@ -136,11 +138,13 @@
                 finalMoves[2] = "growl";
                 finalMoves[3] = "rest";
 
-                Pokemon pokemon = new Pokemon(name, primary, secondary, "Overgrow", finalMoves, hp, atk, def, spatk, spdef, spd, image);
+                //Pokemon pokemon = new Pokemon(name, primary, secondary, "Overgrow", finalMoves, hp, atk, def, spatk, spdef, spd, image);
+
+                //pokemon.GetAbilities(abilities);
 
                 //Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.GRASS, "cool", new string[4], 20, 20, 20, 20, 20, 20, "cool");
 
-                Pokemon.AllPokemon.Add(pokemon);
+                //Pokemon.AllPokemon.Add(pokemon);
 
 
                 //primary = Enum.TryParse((data.GetProperty("types[0].type.name").ToString().ToUpper());
