@@ -1,0 +1,71 @@
+@PokeLoginApi_HostAddress = https://localhost:7264
+
+GET {{PokeLoginApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+POST {{PokeLoginApi_HostAddress}}/api/user
+Content-Type: application/json
+
+{
+  "Name": "Test Name"
+  "Email": "testemail@gmail.com"
+  "Password": "TestPw@123"
+}
+
+###
+
+@email=string
+@password=string
+GET {{PokeLoginApi_HostAddress}}/api/user/{{email}}/{{password}}
+
+###
+
+@id=0
+POST {{PokeLoginApi_HostAddress}}/api/user?id={{id}}
+
+###
+
+POST {{PokeLoginApi_HostAddress}}/api/user
+Content-Type: application/json
+
+{
+  //User
+}
+
+###
+
+POST {{PokeLoginApi_HostAddress}}/api/user
+
+###
+
+POST {{PokeLoginApi_HostAddress}}/api/user
+Content-Type: application/json
+
+{
+  //User
+}
+
+###
+
+POST {{PokeLoginApi_HostAddress}}/api/user
+Content-Type: application/json
+
+{
+  //User
+}
+
+###
+
+POST {{PokeLoginApi_HostAddress}}/api/user
+
+###
+
+POST {{PokeLoginApi_HostAddress}}/api/user
+
+###
+
+POST {{PokeLoginApi_HostAddress}}/api/user?id={{id}}
+
+###
