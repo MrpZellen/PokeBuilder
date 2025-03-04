@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokeBuilderMAUI.Shared", "P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokeBuilderMAUI.Web", "PokeBuilderMAUI\PokeBuilderMAUI.Web\PokeBuilderMAUI.Web.csproj", "{6ACB7FC5-CF1F-47B2-9C38-901DDB3D393E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokeLoginApi", "PokeLoginApi\PokeLoginApi.csproj", "{9A8FF571-EA8D-4991-9B97-024812DA122A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{C35BF6F5-2DCE-4316-AD62-70288C0D09FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,16 @@ Global
 		{6ACB7FC5-CF1F-47B2-9C38-901DDB3D393E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6ACB7FC5-CF1F-47B2-9C38-901DDB3D393E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6ACB7FC5-CF1F-47B2-9C38-901DDB3D393E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A8FF571-EA8D-4991-9B97-024812DA122A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A8FF571-EA8D-4991-9B97-024812DA122A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A8FF571-EA8D-4991-9B97-024812DA122A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A8FF571-EA8D-4991-9B97-024812DA122A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C35BF6F5-2DCE-4316-AD62-70288C0D09FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C35BF6F5-2DCE-4316-AD62-70288C0D09FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C35BF6F5-2DCE-4316-AD62-70288C0D09FB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C35BF6F5-2DCE-4316-AD62-70288C0D09FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C35BF6F5-2DCE-4316-AD62-70288C0D09FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C35BF6F5-2DCE-4316-AD62-70288C0D09FB}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
