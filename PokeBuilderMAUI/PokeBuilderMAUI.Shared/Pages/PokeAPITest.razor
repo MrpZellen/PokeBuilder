@@ -42,12 +42,12 @@
 
                 //var data = await Client.GetFromJsonAsync<JsonElement>($"{Client.BaseAddress}/{currentIndex}")
                 HttpResponseMessage data = await Client.GetAsync($"{Client.BaseAddress}/{currentIndex}");
-                
+
                 string content = await data.Content.ReadAsStringAsync();
                 JObject json = JObject.Parse(content);
 
                 //Set the string properties in the JSON object
-                
+
                 string ability = json["abilities"][0]["ability"]["name"].ToString();
                 string name = json["name"].ToString();
 
@@ -57,7 +57,7 @@
                 finalMoves[2] = "growl";
                 finalMoves[3] = "rest";
 
-                
+
                 Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.POISON, ability, finalMoves, 50, 50, 50, 50, 50, 50, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png");
 
                 //Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.GRASS, "cool", new string[4], 20, 20, 20, 20, 20, 20, "cool");
@@ -68,6 +68,7 @@
                 //primary = Enum.TryParse((data.GetProperty("types[0].type.name").ToString().ToUpper());
 
                 currentIndex++;
+                StateHasChanged();
                 await InvokeAsync(StateHasChanged);
             }
             catch(Exception notFound)

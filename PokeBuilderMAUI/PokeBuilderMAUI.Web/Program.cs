@@ -20,8 +20,8 @@ namespace PokeBuilderMAUI.Web
                 });
 
             //Cascading values for Pokemon Partial
-            builder.Services.AddCascadingValue(sp =>
-                new Pokemon { Name = "test"}
+            builder.Services.AddCascadingValue( sp => 
+                new Pokemon { Name = "initialized"}
             );
 
             var app = builder.Build();
