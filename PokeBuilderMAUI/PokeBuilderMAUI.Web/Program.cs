@@ -1,8 +1,11 @@
 using PokeBuilderMAUI.Web.Components;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 using BootstrapBlazor.Components;
 namespace PokeBuilderMAUI
 =======
+=======
+>>>>>>> Stashed changes
 using PokeBuilderMAUI.Shared.Models;
 namespace PokeBuilderMAUI.Web
 >>>>>>> Stashed changes
