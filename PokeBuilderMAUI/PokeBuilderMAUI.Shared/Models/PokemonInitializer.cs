@@ -4,6 +4,6 @@ namespace PokeBuilderMAUI.Shared.Models
 {
     public class PokemonInitializer
     {
-        public static List<Pokemon> AllPokemon { get; set; } = null;
+        public static List<Pokemon>? AllPokemon { get; set; } 
     }
 }

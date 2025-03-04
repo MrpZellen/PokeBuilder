@@ -9,43 +9,27 @@
 
 <h1>CHOOSE YOUR POKEMON!!!!!!</h1>
 
-@if (getPokemon){
+@if (getPokmon){
 
-    <p>Loading Pokemon #@(currentIndex - 1)</p>
+    <p>Loading Pokemon #@currentIndex</p>
 }
 
-<ul @onloadend=OnInitializedAsync>
-    @foreach (var pokemon in Pokemon.AllPokemon)
+<div @onloadend=OnInitializedAsync>
+    @foreach (var pokemon in currentPokemon)
     {
-        <li>
-            @pokemon.Name
-        </li>
+        <_PokemonPartial pokemon="pokemon" />
     }
 
-</ul>
+</div>
 
 
 @code {
-
-    private static int currentIndex = 1;
-    private bool getPokemon = true;
+    private List<Pokemon>? currentPokemon = [];
+    private int currentIndex = 1;
+    private bool getPokmon = true;
     protected override async Task OnInitializedAsync()
     {
-        if (Pokemon.AllPokemon != null)
-        {
-            //hardcoded cap to check to keep loading pokemon
-            if (currentIndex > 2000)
-            {
-                getPokemon = false;
-                await InvokeAsync(StateHasChanged);
-            }
-
-        }
-        else
-        {
-            Pokemon.AllPokemon = new List<Pokemon>();
-        }
-        while (getPokemon)
+        while (getPokmon)
         {
             try
             {
@@ -53,12 +37,13 @@
 
                 //var data = await Client.GetFromJsonAsync<JsonElement>($"{Client.BaseAddress}/{currentIndex}")
                 HttpResponseMessage data = await Client.GetAsync($"{Client.BaseAddress}/{currentIndex}");
-
+                
                 string content = await data.Content.ReadAsStringAsync();
                 JObject json = JObject.Parse(content);
 
                 //Set the string properties in the JSON object
-
+                
+                string ability = json["abilities"][0]["ability"]["name"].ToString();
                 string name = json["name"].ToString();
 
                 Models.Type primary = Enum.TryParse((json["types"][0]["type"]["name"].ToString().ToUpper()), out primary) ? primary : Models.Type.TYPELESS;
@@ -154,7 +139,7 @@
             }
             catch(Exception notFound)
             {
-                getPokemon = false;
+                getPokmon = false;
                 await InvokeAsync(StateHasChanged);
             }
         }

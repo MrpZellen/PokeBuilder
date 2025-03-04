@@ -6,5 +6,135 @@
 <p>Please log in to create a Team!</p>
 
 @code {
+    // private static int currentIndex = 1;
+    // private bool getPokemon = true;
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     if (PokemonInitializer.AllPokemon != null)
+    //     {
+    //         //hardcoded cap to check to keep loading pokemon
+    //         if (currentIndex > 2000)
+    //         {
+    //             getPokemon = false;
+    //             await InvokeAsync(StateHasChanged);
+    //         }
 
+    //     }
+    //     else
+    //     {
+    //         PokemonInitializer.AllPokemon = new List<Pokemon>();
+    //     }
+    //     while (getPokemon)
+    //     {
+    //         try
+    //         {
+    //             // data == get JSON object from requested URL\
+
+    //             HttpResponseMessage data = await Client.GetAsync($"{Client.BaseAddress}/{currentIndex}");
+
+    //             string content = await data.Content.ReadAsStringAsync();
+    //             JObject json = JObject.Parse(content);
+
+    //             //Set the string properties in the JSON object
+
+    //             string name = json["name"].ToString();
+
+    //             Models.Type primary = Enum.TryParse((json["types"][0]["type"]["name"].ToString().ToUpper()), out primary) ? primary : Models.Type.TYPELESS;
+
+    //             Models.Type secondary = Models.Type.TYPELESS;
+    //             try
+    //             {
+    //                 secondary = Enum.TryParse((json["types"][1]["type"]["name"].ToString().ToUpper()), out secondary) ? secondary : Models.Type.TYPELESS;
+    //             }
+    //             catch (ArgumentOutOfRangeException aoore)
+    //             {
+    //                 secondary = Models.Type.TYPELESS;
+    //             };
+
+    //             List<string>
+    //                 abilities = new List<string>
+    //                     ();
+    //             bool hasMoreAbilities = true;
+    //             int a = 0;
+    //             do
+    //             {
+    //                 string ability = "null";
+
+    //                 try
+    //                 {
+    //                     ability = json["abilities"][a]["ability"]["name"].ToString();
+    //                 }
+    //                 catch (ArgumentOutOfRangeException aoore)
+    //                 {
+    //                     hasMoreAbilities = false;
+    //                 };
+
+    //                 if (hasMoreAbilities)
+    //                 {
+    //                     abilities.Add(ability);
+    //                     a++;
+    //                 }
+    //             }
+    //             while (hasMoreAbilities);
+
+    //             List<string>
+    //                 moves = new List<string>
+    //                     ();
+    //             bool hasMoreMoves = true;
+    //             int m = 0;
+    //             do
+    //             {
+    //                 string move = "null";
+
+    //                 try
+    //                 {
+    //                     move = json["moves"][m]["move"]["name"].ToString();
+    //                 }
+    //                 catch (ArgumentOutOfRangeException aoore)
+    //                 {
+    //                     hasMoreMoves = false;
+    //                 };
+
+    //                 if (hasMoreMoves)
+    //                 {
+    //                     moves.Add(move);
+    //                     m++;
+    //                 }
+    //             }
+    //             while (hasMoreMoves);
+
+    //             int hp = int.Parse(json["stats"][0]["base_stat"].ToString());
+    //             int atk = int.Parse(json["stats"][1]["base_stat"].ToString());
+    //             int def = int.Parse(json["stats"][2]["base_stat"].ToString());
+    //             int spatk = int.Parse(json["stats"][3]["base_stat"].ToString());
+    //             int spdef = int.Parse(json["stats"][4]["base_stat"].ToString());
+    //             int spd = int.Parse(json["stats"][5]["base_stat"].ToString());
+
+    //             string image = json["sprites"]["other"]["official-artwork"]["front_default"].ToString();
+
+    //             string[] finalMoves = new string[4];
+    //             finalMoves[0] = "tackle";
+    //             finalMoves[1] = "leech seed";
+    //             finalMoves[2] = "growl";
+    //             finalMoves[3] = "rest";
+
+    //             Pokemon pokemon = new Pokemon(name, primary, secondary, "Overgrow", finalMoves, hp, atk, def, spatk, spdef, spd, image);
+
+    //             //Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.GRASS, "cool", new string[4], 20, 20, 20, 20, 20, 20, "cool");
+
+    //             PokemonInitializer.AllPokemon.Add(pokemon);
+
+
+    //             //primary = Enum.TryParse((data.GetProperty("types[0].type.name").ToString().ToUpper());
+
+    //             currentIndex++;
+    //             await InvokeAsync(StateHasChanged);
+    //         }
+    //         catch (Exception notFound)
+    //         {
+    //             getPokemon = false;
+    //             await InvokeAsync(StateHasChanged);
+    //         }
+    //     }
+    // }
 }
