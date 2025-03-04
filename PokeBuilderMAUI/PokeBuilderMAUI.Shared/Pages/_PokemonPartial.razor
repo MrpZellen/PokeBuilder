@@ -1,13 +1,15 @@
 ﻿@using PokeBuilderMAUI.Shared.Models
 
 @code {
-    private Pokemon? pokemon = new Pokemon(false);
+    [CascadingParameter]
+    public Pokemon pokemon { get; set; }
 }
+
 <div class="card" style="width: 18rem;">
     <img src="@pokemon.Image" class="card-img-top" alt="Photo of @pokemon.Name">
     <div class="card-body">
         <div class="model-name card-title">
-            <label>@pokemon.Name  NO.@pokemon.Id</label>
+            <label> @pokemon.Name  NO.@pokemon.Id</label>
         </div>
         <div class="model-types card-subtitle">
             <label>@pokemon.Ability</label>

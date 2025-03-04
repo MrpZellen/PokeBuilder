@@ -14,15 +14,18 @@
     <p>Loading Pokemon #@currentIndex</p>
 }
 
-<ul @onloadend=OnInitializedAsync>
+<p>
     @foreach (var pokemon in currentPokemon)
     {
-        <li>
-            @pokemon.Name
-        </li>
+        <CascadingValue Value="@pokemon" Name="pokemon">
+            <ChildContent>
+                <_PokemonPartial />
+            </ChildContent>
+        </CascadingValue>
+
     }
 
-</ul>
+</p>
 
 
 @code {
@@ -54,6 +57,7 @@
                 finalMoves[2] = "growl";
                 finalMoves[3] = "rest";
 
+                
                 Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.POISON, ability, finalMoves, 50, 50, 50, 50, 50, 50, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png");
 
                 //Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.GRASS, "cool", new string[4], 20, 20, 20, 20, 20, 20, "cool");
