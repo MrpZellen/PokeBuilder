@@ -2,29 +2,10 @@
 
 @code {
     [Parameter]
-    public RenderFragment pokedexInfo { get; set; }
-    public IPokedex? currentDex { get; private set; }
-
-    public void AddPokemon(IPokedex entry)
-    {
-        if (currentDex is null)
-        {
-            SetCurrentPokemon(entry);
-        }
-    }
-
-    public void SetCurrentPokemon(IPokedex entry)
-    {
-        if (currentDex != entry)
-        {
-            currentDex = entry;
-            StateHasChanged();
-        }
-    }
-
+    public Pokemon pokemon { get; set; }
 }
-<CascadingValue Value="this">
-@* <div class="card" style="width: 18rem;">
+
+<div class="card" style="width: 18rem;">
     <img src="@pokemon.Image" class="card-img-top" alt="Photo of @pokemon.Name">
     <div class="card-body">
         <div class="model-name card-title">
@@ -63,5 +44,4 @@
             </div>
         </div>
     </div>
-</div> *@
-</CascadingValue>
+</div>

@@ -1,0 +1,31 @@
+﻿@using PokeBuilderMAUI.Shared.Models
+@using PokeBuilderMAUI.Shared.Pages
+
+<CascadingValue Value="this">
+    <_PokemonPartial @pokemon="@CurrentDex.GetPokemon"/>
+</CascadingValue>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    public IDisplayPokemon? CurrentDex { get; set; }
+
+    public void AddPokemon(IDisplayPokemon entry)
+    {
+        if (CurrentDex is null)
+        {
+            SetCurrentPokemon(entry);
+        }
+    }
+
+    public void SetCurrentPokemon(IDisplayPokemon entry)
+    {
+        if (CurrentDex != entry)
+        {
+            CurrentDex = entry;
+            InvokeAsync(StateHasChanged);
+        }
+    }
+
+}

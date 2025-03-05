@@ -43,7 +43,6 @@ namespace PokeBuilderMAUI.Shared.Models
         public int BaseSpDefense { get; private set; }
         public int BaseSpeed { get; private set; }
         public string? Image { get; private set; }
-
         public Pokemon(string name, int id)
         {
             Name = name;
@@ -79,5 +78,6 @@ namespace PokeBuilderMAUI.Shared.Models
             BaseSpAttack = baseSPATK; BaseSpDefense = baseSPDEF;
             BaseSpeed = baseSPD; Image = image;
         }
+        
     }
 }

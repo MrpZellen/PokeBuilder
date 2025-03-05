@@ -3,35 +3,42 @@
 @using System.Text.Json.Serialization
 @using PokeBuilderMAUI.Shared.Models
 @using Newtonsoft.Json.Linq
-
-
 @inject HttpClient Client
+
 
 <h1>CHOOSE YOUR POKEMON!!!!!!</h1>
 
-@if (getPokmon){
 
+@if (getPokmon)
+{
     <p>Loading Pokemon #@currentIndex</p>
 }
 
-<p>
-    @foreach (var pokemon in currentPokemon)
+<ul>
+    @foreach (Pokemon pokemon in currentPokemon)
     {
-        <CascadingValue Value="@pokemon" Name="pokemon">
-            <ChildContent>
-                <_PokemonPartial />
-            </ChildContent>
-        </CascadingValue>
+        if (pokemon != null)
+        {
+            <SetDisplayPokemon>
+                <DisplayPokemon GetPokemon="@pokemon">
+                    <li>
+                        @pokemon.Name
+                    </li>
+                </DisplayPokemon>
+            </SetDisplayPokemon>
 
+        }
     }
 
-</p>
+</ul>
 
 
 @code {
     private List<Pokemon>? currentPokemon = [];
     private int currentIndex = 1;
     private bool getPokmon = true;
+
+
     protected override async Task OnInitializedAsync()
     {
         while (getPokmon)
@@ -64,21 +71,17 @@
 
                 currentPokemon.Add(pokemon);
 
-
                 //primary = Enum.TryParse((data.GetProperty("types[0].type.name").ToString().ToUpper());
 
                 currentIndex++;
-                StateHasChanged();
-                await InvokeAsync(StateHasChanged);
+                
+                //await InvokeAsync(StateHasChanged);
             }
             catch(Exception notFound)
             {
                 getPokmon = false;
-                await InvokeAsync(StateHasChanged);
+                //await InvokeAsync(StateHasChanged);
             }
         }
-        
-       
-
     }
 }
