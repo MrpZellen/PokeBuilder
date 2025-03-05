@@ -68,11 +68,11 @@
                 int a = 0;
                 do
                 {
-                    string ability = "null";
+                    string abilityy = "null";
 
                     try
                     {
-                        ability = json["abilities"][a]["ability"]["name"].ToString();
+                        abilityy = json["abilities"][a]["ability"]["name"].ToString();
                     }
                     catch (ArgumentOutOfRangeException aoore)
                     {
@@ -81,7 +81,7 @@
 
                     if (hasMoreAbilities)
                     {
-                        abilities.Add(ability);
+                        abilities.Add(abilityy);
                         a++;
                     }
                 }

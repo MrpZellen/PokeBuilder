@@ -15,7 +15,13 @@
 <input type="text" @bind="pokename"/>
 <button @onclick="AddPokemon">Add Pokemon</button>
 
-<_TeamMemberPartial pokemon="team[0]" />
+@for (int i = 0; i < 6; i++)
+{
+    if (team[i] != null)
+    {
+        <_TeamMemberPartial pokemon="team[i]" />
+    } 
+}
 
 @code {
     private string? pokename;
@@ -103,7 +109,9 @@
 
             string image = json["sprites"]["other"]["official-artwork"]["front_default"].ToString();
 
-            Pokemon pokemon = new Pokemon(name, primary, secondary, null, moves, hp, atk, def, spatk, spdef, spd, image);
+            int natDex = int.Parse(json["id"].ToString());
+
+            Pokemon pokemon = new Pokemon(name, primary, secondary, null, moves, hp, atk, def, spatk, spdef, spd, image, natDex);
 
             pokemon.Abilities = abilities;
 

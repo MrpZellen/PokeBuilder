@@ -73,17 +73,19 @@ namespace PokeBuilderMAUI.Shared.Models
         public int BaseSpDefense { get; private set; }
         public int BaseSpeed { get; private set; }
         public string? Image { get; private set; }
+        public int NationalDexNumber { get; set; }
 
         public Pokemon(string name, Type primary, Type secondary,
                             string ability, List<string> moves, int baseHP,
                             int baseATK, int baseDEF, int baseSPATK,
-                            int baseSPDEF, int baseSPD, string image)
+                            int baseSPDEF, int baseSPD, string image, int nationalDexNumber)
         {
             Name = name; Primary = primary; Secondary = secondary;
             Ability = ability; Moves = moves;
             BaseHealth = baseHP; BaseAttack = baseATK; BaseDefense = baseDEF;
             BaseSpAttack = baseSPATK; BaseSpDefense = baseSPDEF;
             BaseSpeed = baseSPD; Image = image;
+            NationalDexNumber = nationalDexNumber;
         }
     }
 }
