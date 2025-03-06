@@ -1,13 +1,3 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
-
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\PokeBuilderMAUI.Shared\PokeBuilderMAUI.Shared.csproj" />
-  </ItemGroup>
-
-</Project>
+version https://git-lfs.github.com/spec/v1
+oid sha256:7f684bffb51be82d3bf4ae505071b40d5ae08519594c1ceaa61d381edec84562
+size 330
