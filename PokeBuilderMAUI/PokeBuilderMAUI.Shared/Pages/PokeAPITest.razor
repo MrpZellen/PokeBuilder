@@ -14,23 +14,16 @@
     <p>Loading Pokemon #@currentIndex</p>
 }
 
-<ul>
+<p>
     @foreach (Pokemon pokemon in currentPokemon)
     {
         if (pokemon != null)
         {
-            <SetDisplayPokemon>
-                <DisplayPokemon GetPokemon="@pokemon">
-                    <li>
-                        @pokemon.Name
-                    </li>
-                </DisplayPokemon>
-            </SetDisplayPokemon>
-
+            <_PokemonPartial pokemon="@pokemon"/>
         }
     }
 
-</ul>
+</p>
 
 
 @code {
@@ -75,12 +68,12 @@
 
                 currentIndex++;
                 
-                //await InvokeAsync(StateHasChanged);
+                await InvokeAsync(StateHasChanged);
             }
             catch(Exception notFound)
             {
                 getPokmon = false;
-                //await InvokeAsync(StateHasChanged);
+                await InvokeAsync(StateHasChanged);
             }
         }
     }
