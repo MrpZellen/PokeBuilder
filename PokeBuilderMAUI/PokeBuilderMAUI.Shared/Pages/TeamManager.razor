@@ -1,10 +1,13 @@
 ﻿@page "/team-manager"
 
-<h3>TeamManager</h3>
-
-
-<p>Please log in to see your Teams!</p>
+@if(!isLoggedIn){
+    <h3>Team Manager</h3>
+    <p>Please log in to see your Teams!</p>
+}else {
+    <h3>Page Work in Progress</h3>
+    <p>Here you can manage your teams!</p>
+}
 
 @code {
-
+    private bool isLoggedIn = false;
 }

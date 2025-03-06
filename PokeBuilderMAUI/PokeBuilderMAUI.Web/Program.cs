@@ -1,5 +1,8 @@
 using PokeBuilderMAUI.Web.Components;
 using PokeBuilderMAUI.Shared.Models;
+using Microsoft.EntityFrameworkCore;
+using PokeBuilderMAUI.Shared.Services;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 namespace PokeBuilderMAUI.Web
 {
     public class Program
@@ -12,6 +15,8 @@ namespace PokeBuilderMAUI.Web
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
+            builder.Services.AddTransient<IUserService, UserService>();
+
             //API calling
             builder.Services.AddScoped(sp =>
                 new HttpClient
@@ -23,6 +28,10 @@ namespace PokeBuilderMAUI.Web
             builder.Services.AddCascadingValue( sp => 
                 new Pokemon { Name = "initialized"}
             );
+            var mongoDBSettings = builder.Configuration.GetSection("MongoDBSettings").Get<MongoDBSettings>();
+            builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDBSettings"));
+            builder.Services.AddDbContext<UserStorageDBContext>(options =>
+            options.UseMongoDB(mongoDBSettings.AtlasURI ?? "", mongoDBSettings.DatabaseName ?? ""));
 
             var app = builder.Build();
 
