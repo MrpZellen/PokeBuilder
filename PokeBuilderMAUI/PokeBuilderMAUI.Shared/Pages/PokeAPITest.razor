@@ -9,17 +9,17 @@
 <h1>CHOOSE YOUR POKEMON!!!!!!</h1>
 
 
-@if (getPokmon)
+@if (getPokemon)
 {
     <p>Loading Pokemon #@currentIndex</p>
 }
 
 <p>
-    @foreach (Pokemon pokemon in currentPokemon)
+    @foreach (Pokemon pokemon in PokemonInitializer.AllPokemon)
     {
         if (pokemon != null)
         {
-            <_PokemonPartial pokemon="@pokemon"/>
+            <_PokemonPartial pokemon="@pokemon" />
         }
     }
 
@@ -27,14 +27,27 @@
 
 
 @code {
-    private List<Pokemon>? currentPokemon = [];
-    private int currentIndex = 1;
-    private bool getPokmon = true;
+    
+    private static int currentIndex = 1;
+    private bool getPokemon = true;
 
 
     protected override async Task OnInitializedAsync()
     {
-        while (getPokmon)
+        if (PokemonInitializer.AllPokemon != null)
+        {
+            //hardcoded cap to check to keep loading pokemon
+            if (currentIndex > 2000)
+            {
+                getPokemon = false;
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+        else
+        {
+            PokemonInitializer.AllPokemon = new List<Pokemon>();
+        }
+        while (getPokemon)
         {
             try
             {
@@ -62,17 +75,17 @@
 
                 //Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.GRASS, "cool", new string[4], 20, 20, 20, 20, 20, 20, "cool");
 
-                currentPokemon.Add(pokemon);
+                PokemonInitializer.AllPokemon.Add(pokemon);
 
                 //primary = Enum.TryParse((data.GetProperty("types[0].type.name").ToString().ToUpper());
 
                 currentIndex++;
-                
+
                 await InvokeAsync(StateHasChanged);
             }
-            catch(Exception notFound)
+            catch (Exception notFound)
             {
-                getPokmon = false;
+                getPokemon = false;
                 await InvokeAsync(StateHasChanged);
             }
         }
