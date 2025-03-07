@@ -1,4 +1,7 @@
 ﻿@page "/login"
+@* @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@inject ProtectedSessionStorage ProtectedSessionStore
+*@
 
 <h3>Login Here</h3>
 <form method="post" asp-controller="User" asp-action="Add">
@@ -15,6 +18,11 @@
     </div>
     <input type="submit" value="Add user" class="btn btn-primary" />
 </form>
-@code {
 
+@code {
+    User currentUser = new User();
+    protected override async Task OnInitializedAsync()
+    {
+        
+    }
 }
