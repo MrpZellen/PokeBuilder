@@ -1,5 +1,8 @@
 using PokeBuilderMAUI.Web.Components;
 using PokeBuilderMAUI.Shared.Models;
+using Microsoft.EntityFrameworkCore;
+using PokeBuilderMAUI.Shared.Services;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 namespace PokeBuilderMAUI.Web
 {
     public class Program
@@ -12,6 +15,9 @@ namespace PokeBuilderMAUI.Web
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
+            //Dependency Injection
+            builder.Services.AddTransient<IUserService, UserService>();
+
             //API calling
             builder.Services.AddScoped(sp =>
                 new HttpClient
@@ -19,10 +25,20 @@ namespace PokeBuilderMAUI.Web
                     BaseAddress = new Uri("https://pokeapi.co/api/v2/pokemon")
                 });
 
-            //Cascading values for Pokemon Partial
-            builder.Services.AddCascadingValue(sp =>
-                new Pokemon { Name = "test"}
-            );
+            //Mongo DB Settings
+            var mongoDBSettings = builder.Configuration.GetSection("MongoDBSettings").Get<MongoDBSettings>();
+            builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDBSettings"));
+            builder.Services.AddDbContext<UserStorageDBContext>(options =>
+            options.UseMongoDB(mongoDBSettings.AtlasURI ?? "", mongoDBSettings.DatabaseName ?? ""));
+
+            //Session
+            builder.Services.AddDistributedMemoryCache();
+
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(1);
+                //options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
 
             var app = builder.Build();
 
@@ -38,6 +54,8 @@ namespace PokeBuilderMAUI.Web
 
             app.UseStaticFiles();
             app.UseAntiforgery();
+
+            app.UseSession();
 
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode()

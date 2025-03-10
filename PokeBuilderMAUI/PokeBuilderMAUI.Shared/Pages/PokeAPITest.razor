@@ -3,38 +3,51 @@
 @using System.Text.Json.Serialization
 @using PokeBuilderMAUI.Shared.Models
 @using Newtonsoft.Json.Linq
-
-
 @inject HttpClient Client
+
 
 <h1>CHOOSE YOUR POKEMON!!!!!!</h1>
 
-@if (getPokmon){
 
+@if (getPokemon)
+{
     <p>Loading Pokemon #@currentIndex</p>
 }
 
 <p>
-    @foreach (var pokemon in currentPokemon)
+    @foreach (Pokemon pokemon in PokemonInitializer.AllPokemon)
     {
-        <CascadingValue Value="@pokemon" Name="pokemon">
-            <ChildContent>
-                <_PokemonPartial />
-            </ChildContent>
-        </CascadingValue>
-
+        if (pokemon != null)
+        {
+            <_PokemonPartial pokemon="@pokemon" />
+        }
     }
 
 </p>
 
 
 @code {
-    private List<Pokemon>? currentPokemon = [];
-    private int currentIndex = 1;
-    private bool getPokmon = true;
+    
+    private static int currentIndex = 1;
+    private bool getPokemon = true;
+
+
     protected override async Task OnInitializedAsync()
     {
-        while (getPokmon)
+        if (PokemonInitializer.AllPokemon != null)
+        {
+            //hardcoded cap to check to keep loading pokemon
+            if (currentIndex > 2000)
+            {
+                getPokemon = false;
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+        else
+        {
+            PokemonInitializer.AllPokemon = new List<Pokemon>();
+        }
+        while (getPokemon)
         {
             try
             {
@@ -42,12 +55,12 @@
 
                 //var data = await Client.GetFromJsonAsync<JsonElement>($"{Client.BaseAddress}/{currentIndex}")
                 HttpResponseMessage data = await Client.GetAsync($"{Client.BaseAddress}/{currentIndex}");
-                
+
                 string content = await data.Content.ReadAsStringAsync();
                 JObject json = JObject.Parse(content);
 
                 //Set the string properties in the JSON object
-                
+
                 string ability = json["abilities"][0]["ability"]["name"].ToString();
                 string name = json["name"].ToString();
 
@@ -128,28 +141,24 @@
                 finalMoves[2] = "growl";
                 finalMoves[3] = "rest";
 
-                //Pokemon pokemon = new Pokemon(name, primary, secondary, "Overgrow", finalMoves, hp, atk, def, spatk, spdef, spd, image);
 
-                //pokemon.GetAbilities(abilities);
+                Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.POISON, ability, finalMoves, 50, 50, 50, 50, 50, 50, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png");
 
                 //Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.GRASS, "cool", new string[4], 20, 20, 20, 20, 20, 20, "cool");
 
-                //Pokemon.AllPokemon.Add(pokemon);
-
+                PokemonInitializer.AllPokemon.Add(pokemon);
 
                 //primary = Enum.TryParse((data.GetProperty("types[0].type.name").ToString().ToUpper());
 
                 currentIndex++;
+
                 await InvokeAsync(StateHasChanged);
             }
-            catch(Exception notFound)
+            catch (Exception notFound)
             {
-                getPokmon = false;
+                getPokemon = false;
                 await InvokeAsync(StateHasChanged);
             }
         }
-        
-       
-
     }
 }

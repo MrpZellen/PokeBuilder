@@ -87,5 +87,6 @@ namespace PokeBuilderMAUI.Shared.Models
             BaseSpeed = baseSPD; Image = image;
             NationalDexNumber = nationalDexNumber;
         }
+        
     }
 }
