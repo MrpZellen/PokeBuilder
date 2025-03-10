@@ -9,7 +9,7 @@
     <img src="@pokemon.Image" class="card-img-top" alt="Photo of @pokemon.Name">
     <div class="card-body">
         <div class="model-name card-title h3 fw-bold">
-            <label> @pokemon.Name  NO.@pokemon.Id</label>
+            <label> @pokemon.Name  NO.@pokemon.NationalDexNumber</label>
         </div>
         <hr class="border border-primary">
         <div class="model-ability h5">
@@ -17,7 +17,7 @@
         </div>
         <hr class="border border-primary">
         <div class="model-types card-subtitle">
-            <label>@pokemon.Primary</label>
+            <label>@pokemon.Primary </label>
             @if (pokemon.Secondary != Models.Type.TYPELESS)
             {
                 <label> | @pokemon.Secondary</label>
@@ -26,9 +26,13 @@
         <hr class="border border-primary">
         <div class="list-group text-light"> 
             <div>@pokemon.Moves[0]</div>
-            <div>@pokemon.Moves[1]</div>                    
-            <div>@pokemon.Moves[2]</div>
-            <div>@pokemon.Moves[3]</div>
+            @if (pokemon.Moves.Count > 1)
+            {
+                <div>@pokemon.Moves[1]</div>                    
+                <div>@pokemon.Moves[2]</div>
+                <div>@pokemon.Moves[3]</div>
+                
+            }
         </div>
         <hr class="border border-primary">
             <div class="model-stats card-text">

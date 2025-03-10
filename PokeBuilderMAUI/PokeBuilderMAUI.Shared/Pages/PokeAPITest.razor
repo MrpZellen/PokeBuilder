@@ -14,7 +14,7 @@
     <p>Loading Pokemon #@currentIndex</p>
 }
 
-<p>
+<div class="d-flex">
     @foreach (Pokemon pokemon in PokemonInitializer.AllPokemon)
     {
         if (pokemon != null)
@@ -23,7 +23,7 @@
         }
     }
 
-</p>
+</div>
 
 
 @code {
@@ -53,7 +53,6 @@
             {
                 // data == get JSON object from requested URL\
 
-                //var data = await Client.GetFromJsonAsync<JsonElement>($"{Client.BaseAddress}/{currentIndex}")
                 HttpResponseMessage data = await Client.GetAsync($"{Client.BaseAddress}/{currentIndex}");
 
                 string content = await data.Content.ReadAsStringAsync();
@@ -141,10 +140,8 @@
                 finalMoves[2] = "growl";
                 finalMoves[3] = "rest";
 
-
-                Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.POISON, ability, moves, 50, 50, 50, 50, 50, 50, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",currentIndex);
-
-                //Pokemon pokemon = new Pokemon(name, Models.Type.GRASS, Models.Type.GRASS, "cool", new string[4], 20, 20, 20, 20, 20, 20, "cool");
+                
+                Pokemon pokemon = new Pokemon(name, primary, secondary, ability, moves, 50, 50, 50, 50, 50, 50, $"{image}",currentIndex);
 
                 PokemonInitializer.AllPokemon.Add(pokemon);
 
