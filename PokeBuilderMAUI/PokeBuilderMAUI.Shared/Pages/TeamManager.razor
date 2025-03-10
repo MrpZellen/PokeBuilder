@@ -12,7 +12,7 @@
     public Pokemon[] team = new Pokemon[6];
 }
 
-<input type="text" @bind="pokename"/>
+<input type="text" @bind="pokename" />
 <button @onclick="AddPokemon">Add Pokemon</button>
 
 @for (int i = 0; i < 6; i++)
@@ -20,7 +20,7 @@
     if (team[i] != null)
     {
         <_TeamMemberPartial pokemon="team[i]" />
-    } 
+    }
 }
 
 @code {
@@ -30,12 +30,13 @@
     {
         try
         {
-            HttpResponseMessage data = await Client.GetAsync($"{Client.BaseAddress}/{pokename}");
+            HttpResponseMessage data = await Client.GetAsync($"{Client.BaseAddress}/{pokename.ToLower()}");
 
             string content = await data.Content.ReadAsStringAsync();
             JObject json = JObject.Parse(content);
 
             string name = json["name"].ToString();
+            name = FormatString(name);
 
             Models.Type primary = Enum.TryParse((json["types"][0]["type"]["name"].ToString().ToUpper()), out primary) ? primary : Models.Type.TYPELESS;
 
@@ -60,12 +61,13 @@
                 try
                 {
                     ability = json["abilities"][a]["ability"]["name"].ToString();
+                    ability = FormatString(ability);
                 }
                 catch (ArgumentOutOfRangeException aoore)
                 {
                     hasMoreAbilities = false;
                 }
-                ;
+
 
                 if (hasMoreAbilities)
                 {
@@ -85,6 +87,7 @@
                 try
                 {
                     move = json["moves"][m]["move"]["name"].ToString();
+                    move = FormatString(move);
                 }
                 catch (ArgumentOutOfRangeException aoore)
                 {
@@ -129,4 +132,34 @@
             Console.WriteLine("Pokemon Not Found");
         }
     }
+
+    private String FormatString(string toFormat)
+    {
+        if (toFormat.Contains("-"))
+        {
+            toFormat = toFormat.Replace("-", " ");
+        }
+        string toFormatFL = toFormat.Substring(0, 1).ToUpper();
+        string toFormatFH;
+        string toFormatLL = toFormat.Substring(toFormat.Length - 1, 1);
+        if (toFormat.Contains(" "))
+        {
+            int spaceIndex = toFormat.IndexOf(" ");
+            toFormatFH = toFormat.Substring(1, spaceIndex - 1);
+            string toFormatSH = toFormat.Substring(spaceIndex, toFormat.Length - spaceIndex);
+            string toFormatSHS = toFormat.Substring(spaceIndex, 1);
+            string toFormatSHFL = toFormatSH.Substring(1, 1).ToUpper();
+            string toFormatSHRL = toFormatSH.Substring(2, toFormatSH.Length - 2);
+            toFormatSH = toFormatSHS + toFormatSHFL + toFormatSHRL;
+            toFormat = toFormatFL + toFormatFH + toFormatSH;
+        }
+        else
+        {
+            toFormatFH = toFormat.Substring(1, toFormat.Length - 1);
+            toFormat = toFormatFL + toFormatFH;
+        }
+
+        return toFormat;
+    }
 }
+

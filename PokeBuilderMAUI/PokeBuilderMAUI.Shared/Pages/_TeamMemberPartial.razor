@@ -55,13 +55,13 @@
                                         <option value="@pokemon.Moves[i]">@pokemon.Moves[i]</option>
                                     }
                                 }
-                            }
+                            
                         </select>
-                    }
-                    else
-                    {
-                        <label>@pokemon.Move1</label>
-                    }
+                        }
+                        else
+                        {
+                            <label>@pokemon.Move1</label>
+                        }
 
                     @if (pokemon.Move2 == null)
                     {
@@ -114,7 +114,7 @@
                         <label>@pokemon.Move3</label>
                     }
 
-                    @if (pokemon.Move4 == null)
+                     @if (pokemon.Move4 == null)
                     {
                         <select @bind="@pokemon.Move4">
                                 <option>Move</option>
