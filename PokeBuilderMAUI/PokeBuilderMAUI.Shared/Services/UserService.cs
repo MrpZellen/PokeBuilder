@@ -1,66 +1,40 @@
-﻿using PokeBuilderMAUI.Shared.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MongoDB.Driver;
+using PokeBuilderMAUI.Shared.Models;
+using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 
 namespace PokeBuilderMAUI.Shared.Services
 {
     public class UserService : IUserService
     {
-        private readonly UserStorageDBContext _dbContext;
-        public UserService(UserStorageDBContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
-        public IEnumerable<User> GetUsers()
-        {
-            return _dbContext.Users.OrderBy(u => u.Id).ToList().AsEnumerable<User>();
-        }
-        public User? GetUser(string username)
-        {
-            return _dbContext.Users.FirstOrDefault(u => u.Username == username);
-        }
-        public void AddUser(User user)
-        {
-            _dbContext.Users.Add(user);
+        private readonly IMongoCollection<User> _users;
 
-            _dbContext.ChangeTracker.DetectChanges();
-            Console.WriteLine(_dbContext.ChangeTracker.DebugView.LongView);
+        public UserService(IOptions<MongoDBSettings> dbContext)
+        {
+            var mongoClient = new MongoClient(dbContext.Value.AtlasURI);
+            var mongoDatabase = mongoClient.GetDatabase(dbContext.Value.DatabaseName);
+            _users = mongoDatabase.GetCollection<User>(dbContext.Value.CollectionName);
+        }
 
-            _dbContext.SaveChanges();
-        }
-        public void UpdateUser(User user)
-        {
-            var updatedUser = _dbContext.Users.FirstOrDefault(u => u.Id == user.Id);
-            if (updatedUser != null)
-            {
-                updatedUser.Username = user.Username;
-                updatedUser.Password = user.Password;
-                _dbContext.ChangeTracker.DetectChanges();
-                Console.WriteLine(_dbContext.ChangeTracker.DebugView.LongView);
-                _dbContext.SaveChanges();
-            }
-            else
-            {
-                throw new Exception("User not found.");
-            }
-        }
-        public void DeleteUser(string username)
-        {
-            var user = _dbContext.Users.FirstOrDefault(u => u.Username == username);
-            if (user != null)
-            {
-                _dbContext.Users.Remove(user);
-                _dbContext.ChangeTracker.DetectChanges();
-                Console.WriteLine(_dbContext.ChangeTracker.DebugView.LongView);
-                _dbContext.SaveChanges();
-            }
-            else
-            {
-                throw new Exception("User not found.");
-            }
-        }
+        public async Task<List<User>> GetAsync() =>
+            await _users.Find(user => true).ToListAsync();
+
+        public async Task<User?> GetAsync(string username) =>
+            await _users.Find(user => user.Username == username).FirstOrDefaultAsync();
+
+        public async Task<User?> GetAsync(ObjectId id) =>
+            await _users.Find(user => user.Id == id).FirstOrDefaultAsync();
+
+        public async Task CreateAsync(User newUser) =>
+            await _users.InsertOneAsync(newUser);
+
+        public async Task UpdateAsync(User user, string userName) =>
+            await _users.ReplaceOneAsync(u => u.Username == userName, user);
+
+        public async Task RemoveAsync(string userName) =>
+            await _users.DeleteOneAsync(u => u.Username == userName);
+
+        public async Task RemoveAsync(ObjectId id) =>
+            await _users.DeleteOneAsync(u => u.Id == id);
     }
 }
