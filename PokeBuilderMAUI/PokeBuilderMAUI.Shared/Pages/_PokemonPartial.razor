@@ -17,7 +17,7 @@
         </div>
         <hr class="border border-primary">
         <div class="model-types card-subtitle">
-            <label>@pokemon.Primary </label>
+            <label>@pokemon.Primary  </label>
             @if (pokemon.Secondary != Models.Type.TYPELESS)
             {
                 <label> | @pokemon.Secondary</label>
@@ -26,12 +26,22 @@
         <hr class="border border-primary">
         <div class="list-group text-light"> 
             <div>@pokemon.Moves[0]</div>
-            @if (pokemon.Moves.Count > 1)
+            @if (pokemon.Moves.Count == 2)
             {
                 <div>@pokemon.Moves[1]</div>                    
+
+
+            }
+            else if (pokemon.Moves.Count == 3)
+            {
+                <div>@pokemon.Moves[1]</div>
+                <div>@pokemon.Moves[2]</div>
+            }
+            else if (pokemon.Moves.Count >= 4)
+            {
+                <div>@pokemon.Moves[1]</div>
                 <div>@pokemon.Moves[2]</div>
                 <div>@pokemon.Moves[3]</div>
-                
             }
         </div>
         <hr class="border border-primary">
