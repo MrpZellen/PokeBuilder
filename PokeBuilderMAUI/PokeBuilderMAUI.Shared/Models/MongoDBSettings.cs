@@ -10,5 +10,6 @@ namespace PokeBuilderMAUI.Shared.Models
     {
         public string AtlasURI { get; set; }
         public string DatabaseName { get; set; }
+        public string CollectionName { get; internal set; }
     }
 }

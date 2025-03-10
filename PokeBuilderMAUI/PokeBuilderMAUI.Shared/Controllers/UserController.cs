@@ -1,58 +1,62 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PokeBuilderMAUI.Shared.Services;
 using PokeBuilderMAUI.Shared.ViewModels;
-using System.Web.Mvc;
 using PokeBuilderMAUI.Shared.Models;
+using MongoDB.Bson;
 
 namespace PokeBuilderMAUI.Shared.Controllers
 {
-    public class UserController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+
         public UserController(IUserService userService)
         {
             _userService = userService;
         }
-        public IActionResult Add()
+
+        [HttpGet]
+        public async Task<List<User>> Get() =>
+            await _userService.GetAsync();
+
+        [HttpGet("{username}")]
+        public async Task<ActionResult<User?>> Get(string username)
         {
-            return (IActionResult)View();
+            var user = await _userService.GetAsync(username);
+
+            return user;
         }
+
         [HttpPost]
-        public IActionResult Add(UserAddViewModel userAddViewModel)
+        public async Task<IActionResult> Create(User newUser)
         {
-            if (ModelState.IsValid)
-            {
-                User newUser = new User
-                {
-                    Username = userAddViewModel.User.Username,
-                    Password = userAddViewModel.User.Password
-                };
-
-                _userService.AddUser(newUser);
-                return (IActionResult)RedirectToAction("Home");
-            }
-            return (IActionResult)View(userAddViewModel);
-        }
-        public IActionResult Delete(string id)
-        {
-            if(id == null)
-            {
-                return (IActionResult)RedirectToAction("Home");
-            }
-
-            var selectedUser = _userService.GetUser(id);
-            return (IActionResult)View(selectedUser);
-        }
-        [HttpPost]
-        public IActionResult Delete(User user)
-        {
-            if(user.Id == null)
-            {
-                return (IActionResult)RedirectToAction("Home");
-            }
-            _userService.DeleteUser(user.Username);
-            return (IActionResult)RedirectToAction("Home");
+            await _userService.CreateAsync(newUser);
+            CreatedAtActionResult cr = new CreatedAtActionResult(nameof(Get), "UserController", new { username = newUser.Username }, newUser);
+            return cr;
         }
 
+        [HttpPut("{username}")]
+        public async Task<IActionResult> Update(User updatedUser, string password)
+        {
+            var user = await _userService.GetAsync(password);
+
+            updatedUser.Password = user.Password;
+
+            await _userService.UpdateAsync(user, password);
+            NoContentResult nc = new NoContentResult();
+            return nc;
+        }
+
+        [HttpDelete("{username}")]
+        public async Task<IActionResult> Delete(ObjectId id)
+        {
+            var user = await _userService.GetAsync(id);
+
+            await _userService.RemoveAsync(id);
+            NoContentResult nc = new NoContentResult();
+            return nc;
+        }
     }
 }
