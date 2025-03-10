@@ -14,7 +14,7 @@
     <p>Loading Pokemon #@currentIndex</p>
 }
 
-<p>
+<div class="d-flex">
     @foreach (Pokemon pokemon in PokemonInitializer.AllPokemon)
     {
         if (pokemon != null)
@@ -23,7 +23,7 @@
         }
     }
 
-</p>
+</div>
 
 
 @code {
