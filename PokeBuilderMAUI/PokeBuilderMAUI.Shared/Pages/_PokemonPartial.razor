@@ -17,9 +17,10 @@
         </div>
         <hr class="border border-primary">
         <div class="model-types card-subtitle">
-            <label>@pokemon.Primary  </label>
+            <label>@pokemon.Primary</label>
             @if (pokemon.Secondary != Models.Type.TYPELESS)
             {
+                <label> </label>
                 <label> | @pokemon.Secondary</label>
             }
         </div>
