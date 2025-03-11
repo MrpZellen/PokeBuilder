@@ -14,7 +14,7 @@
     <p>Loading Pokemon #@currentIndex</p>
 }
 
-<div class="d-flex">
+<div class="d-flex flex-wrap">
     @foreach (Pokemon pokemon in PokemonInitializer.AllPokemon)
     {
         if (pokemon != null)
@@ -141,7 +141,7 @@
                 finalMoves[3] = "rest";
 
                 
-                Pokemon pokemon = new Pokemon(name, primary, secondary, ability, moves, 50, 50, 50, 50, 50, 50, $"{image}",currentIndex);
+                Pokemon pokemon = new Pokemon(name, primary, secondary, ability, moves, hp, atk, def, spatk, spdef, spd, $"{image}",currentIndex);
 
                 PokemonInitializer.AllPokemon.Add(pokemon);
 
