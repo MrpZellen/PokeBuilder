@@ -1,4 +1,6 @@
 ﻿@page "/login"
+@using PokeBuilderMAUI.Shared.Controllers
+@using System.Text.Json
 @* @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @inject ProtectedSessionStorage ProtectedSessionStore
 *@
@@ -7,9 +9,9 @@
 <form method="post" asp-controller="User" asp-action="Add">
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="mb-3">
-        <label asp-for="User.Username" class="form-label"></label>
-        <input asp-for="User.Username" class="form-control" />
-        <span asp-validation-for="User.Username" class="text-danger"></span>
+        <label asp-for="userInfo.Username" class="form-label"></label>
+        <input asp-for="userInfo.Username" class="form-control" />
+        <span asp-validation-for="userInfo.Username" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label asp-for="User.Password" class="form-label"></label>
@@ -20,9 +22,26 @@
 </form>
 
 @code {
-    User currentUser = new User();
-    protected override async Task OnInitializedAsync()
+    private readonly HttpClient _httpClient;
+    public UserController uc { get; set; }
+
+    public string prompt { get; set; }
+
+    public Login(HttpClient httpClient)
+    {
+        _httpClient = httpClient;
+    }
+
+    public async Task OnGet()
     {
         
+        prompt = "Enter your login information";
+
+        var response = await _httpClient.GetAsync("http://localhost:7136/swagger/index.html");
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            uc.currentUser = JsonSerializer.Deserialize<User>(jsonResponse);
+        }
     }
 }

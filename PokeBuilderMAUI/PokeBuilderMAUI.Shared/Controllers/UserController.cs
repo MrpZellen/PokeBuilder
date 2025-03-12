@@ -9,8 +9,10 @@ namespace PokeBuilderMAUI.Shared.Controllers
 {
     [ApiController]
     [Route("api")]
+
     public class UserController : ControllerBase
     {
+        public User currentUser { get; private set; }
         private readonly IMongoCollection<User> _users;
 
         public UserController(UserService userService)
@@ -37,6 +39,47 @@ namespace PokeBuilderMAUI.Shared.Controllers
         {
             await _users.InsertOneAsync(newUser);
             return CreatedAtAction(nameof(GetByUsername), new { username = newUser.Username }, newUser);
+        }
+
+        [HttpPost("addTeam")]
+        public async Task<ActionResult> AddTeamToUser(Pokemon[] pokemons)
+        {
+            if (currentUser is null)
+            {
+                return Unauthorized();
+            }
+            else
+            {
+                var filter = Builders<User>.Filter.Eq(x => x.Username, currentUser.Username);
+                var user = _users.Find(filter).FirstOrDefault();
+                user.Teams.Add(pokemons);
+                await _users.ReplaceOneAsync(filter, user);
+                return Ok();
+            }
+        }
+
+        [HttpPost("login")]
+        public async Task<ActionResult> Login(User user)
+        {
+            var filter = Builders<User>.Filter.Eq(x => x.Username, user.Username);
+            var userInDb = _users.Find(filter).FirstOrDefault();
+            if (userInDb is null)
+            {
+                return NotFound();
+            }
+            if (userInDb.Password != user.Password)
+            {
+                return Unauthorized();
+            }
+            currentUser = userInDb;
+            return Ok();
+        }
+
+        [HttpPost("logout")]
+        public async Task<ActionResult> Logout()
+        {
+            currentUser = null;
+            return Ok();
         }
 
         [HttpPut("{username}")]
