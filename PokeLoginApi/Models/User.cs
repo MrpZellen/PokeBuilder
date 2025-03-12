@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:149c5448d86ec9c7dbb2f544e208909137c0aa914bbef0138202158a89117c6f
-size 797
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
+namespace PokeLoginApi.Models
+{
+    public class User
+    {
+        [BsonId]
+        [BsonElement("id"), BsonRepresentation(BsonType.ObjectId)]
+        public int UserId { get; set; }
+        [BsonElement("name"), BsonRepresentation(BsonType.String)]
+        public string? Name { get; set; }
+        [BsonElement("email"), BsonRepresentation(BsonType.String)]
+        public string? Email { get; set; }
+        [BsonElement("password"), BsonRepresentation(BsonType.String)]
+        public string? Password { get; set; }
+
+    }
+}

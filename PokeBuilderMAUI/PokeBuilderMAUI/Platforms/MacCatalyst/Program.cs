@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0353442334ae8529a6627d1f50eae9490798bcc8015bde5323e4eeb8d29e8d59
-size 419
+﻿using ObjCRuntime;
+using UIKit;
+
+namespace PokeBuilderMAUI
+{
+    public class Program
+    {
+        // This is the main entry point of the application.
+        static void Main(string[] args)
+        {
+            // if you want to use a different Application Delegate class from "AppDelegate"
+            // you can specify it here.
+            UIApplication.Main(args, null, typeof(AppDelegate));
+        }
+    }
+}

@@ -1,3 +1,84 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:14b1ba1b571ef280bd5c1bbd3d8556a1e621b23c58c9501ff4c0a5d8ad0095f0
-size 1296
+@PokeLoginApi_HostAddress = https://localhost:7264
+
+GET {{PokeLoginApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+POST {{PokeLoginApi_HostAddress}}/api/user
+Content-Type: application/json
+
+{
+  "Name": "Test Name"
+  "Email": "testemail@gmail.com"
+  "Password": "TestPw@123"
+}
+
+###
+
+@email=string
+@password=string
+GET {{PokeLoginApi_HostAddress}}/api/user/{{email}}/{{password}}
+
+###
+
+@id=0
+POST {{PokeLoginApi_HostAddress}}/api/user?id={{id}}
+
+###
+
+POST {{PokeLoginApi_HostAddress}}/api/user
+Content-Type: application/json
+
+{
+  //User
+}
+
+###
+
+POST {{PokeLoginApi_HostAddress}}/api/user
+
+###
+
+POST {{PokeLoginApi_HostAddress}}/api/user
+Content-Type: application/json
+
+{
+  //User
+}
+
+###
+
+POST {{PokeLoginApi_HostAddress}}/api/user
+Content-Type: application/json
+
+{
+  //User
+}
+
+###
+
+POST {{PokeLoginApi_HostAddress}}/api/user
+
+###
+
+POST {{PokeLoginApi_HostAddress}}/api/user
+
+###
+
+POST {{PokeLoginApi_HostAddress}}/api/user?id={{id}}
+
+###
+
+POST {{PokeLoginApi_HostAddress}}/api/user
+Content-Type: application/json
+
+{
+  //User
+}
+
+###
+
+POST {{PokeLoginApi_HostAddress}}/api/user
+
+###

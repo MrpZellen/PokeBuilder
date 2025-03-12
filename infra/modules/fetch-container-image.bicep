@@ -1,3 +1,8 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:08c5b262cd5c01af0e299213a394544fe40ab36ab81f42bfde3b46ab1c0b4873
-size 231
+param exists bool
+param name string
+
+resource existingApp 'Microsoft.App/containerApps@2023-05-02-preview' existing = if (exists) {
+  name: name
+}
+
+output containers array = exists ? existingApp.properties.template.containers : []

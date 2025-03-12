@@ -1,3 +1,17 @@
+<<<<<<< Updated upstream
 version https://git-lfs.github.com/spec/v1
-oid sha256:29f3a7c5098a3a023800d49273634dd3388426e6063baba94dee7a13052af6a4
-size 1153
+oid sha256:f0816ded97c9d2803e57132402a7e3847a53ad3f912ec7a380c6699df0407198
+size 967
+=======
+IF HAVING ISSUES, REDEPLOY HERE:
+Navigate to your directory using the command line, the master branch should already have azd installed, if it doesn't you can check with azd version.
+then use the command azd auth login
+this command lets you sign into Azure, and deploy the project after authorizing. 
+then use the command azd up, which will hook up the project and post it onto the site.
+You have to select a Subscription, then a Location. The Subscription should be Azure for Students, and the location is any, doesn't matter much.
+
+OTHERWISE:
+https://portal.azure.com/#view/HubsExtension/DeploymentDetailsBlade/~/overview/id/%2Fsubscriptions%2Fec35a805-b580-4d2f-836c-77d76d74eff5%2Fproviders%2FMicrosoft.Resources%2Fdeployments%2FPokeBuilder-1741019605
+this link directs to the deployment page I have, simply hit Redeploy here and it should update the site.
+Here is the Endpoint: https://pokebuildermaui-web.ashytree-836e2ef8.southcentralus.azurecontainerapps.io/
+>>>>>>> Stashed changes
