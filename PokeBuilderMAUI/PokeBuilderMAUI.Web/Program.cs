@@ -16,8 +16,11 @@ namespace PokeBuilderMAUI.Web
                 .AddInteractiveServerComponents();
 
             //Dependency Injection
-            builder.Services.AddTransient<IUserService, UserService>();
-
+            builder.Services.AddSingleton<UserService>();
+            //API STUFF KILL ME KILL ME KILL ME NOW
+            builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
             //API calling
             builder.Services.AddScoped(sp =>
                 new HttpClient
@@ -49,6 +52,12 @@ namespace PokeBuilderMAUI.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseRouting();
+            app.UseAuthorization();
+            app.MapControllers();
+
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             app.UseHttpsRedirection();
 

@@ -2,39 +2,25 @@
 using PokeBuilderMAUI.Shared.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
+using Microsoft.Extensions.Configuration;
 
 namespace PokeBuilderMAUI.Shared.Services
 {
-    public class UserService : IUserService
+    public class UserService
     {
-        private readonly IMongoCollection<User> _users;
+        private readonly IConfiguration _configuration;
+        private readonly IMongoDatabase _database;
 
-        public UserService(IOptions<MongoDBSettings> dbContext)
+        public UserService(IConfiguration configuration)
         {
-            var mongoClient = new MongoClient(dbContext.Value.AtlasURI);
-            var mongoDatabase = mongoClient.GetDatabase(dbContext.Value.DatabaseName);
-            _users = mongoDatabase.GetCollection<User>(dbContext.Value.CollectionName);
+            _configuration = configuration;
+
+            var connectionString = _configuration.GetConnectionString("DbConnection");
+            var mongoUrl = MongoUrl.Create(connectionString);
+            var mongoClient = new MongoClient(mongoUrl);
+            _database = mongoClient.GetDatabase(mongoUrl.DatabaseName);
         }
+        public IMongoDatabase Database => _database;
 
-        public async Task<List<User>> GetAsync() =>
-            await _users.Find(user => true).ToListAsync();
-
-        public async Task<User?> GetAsync(string username) =>
-            await _users.Find(user => user.Username == username).FirstOrDefaultAsync();
-
-        public async Task<User?> GetAsync(ObjectId id) =>
-            await _users.Find(user => user.Id == id).FirstOrDefaultAsync();
-
-        public async Task CreateAsync(User newUser) =>
-            await _users.InsertOneAsync(newUser);
-
-        public async Task UpdateAsync(User user, string userName) =>
-            await _users.ReplaceOneAsync(u => u.Username == userName, user);
-
-        public async Task RemoveAsync(string userName) =>
-            await _users.DeleteOneAsync(u => u.Username == userName);
-
-        public async Task RemoveAsync(ObjectId id) =>
-            await _users.DeleteOneAsync(u => u.Id == id);
     }
 }

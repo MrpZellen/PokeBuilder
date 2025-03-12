@@ -10,11 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ??
-    throw new InvalidOperationException("Connection 'Default Connection' is not found"));
-});
+builder.Services.AddSingleton<MongoDbService>();
 
 var app = builder.Build();
 

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 using PokeLoginApi.Data;
 using PokeLoginApi.Models;
 using System;
+using System.Threading.Tasks;
 
 namespace PokeLoginApi.Controllers
 {
@@ -43,11 +45,13 @@ namespace PokeLoginApi.Controllers
             }
             return await _context.Users.ToListAsync();
         }
+        //public async Task<ActionResult<List<User>>> Get() => Ok(await mongoCollection.Users.ToListAsync());
 
         // GET: User/GetUser/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(int? id)
         {
+            // Check if ID is null
             if (id == null)
             {
                 return NotFound();
