@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:50f0176b4c660c7290f2126a4177dd8a7c42b5976e3fbea399753bef84439b5d
-size 538
+﻿using Microsoft.EntityFrameworkCore;
+using PokeLoginApi.Models;
+
+namespace PokeLoginApi.Data
+{
+    public class AppDbContext : DbContext
+    {
+        
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
+            
+        }
+
+        public DbSet<User> Users { get; set; } = default!;
+    }
+}

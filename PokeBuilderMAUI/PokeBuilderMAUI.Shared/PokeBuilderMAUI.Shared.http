@@ -1,3 +1,18 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:484ed579a763da62e70df812fc47dff44cbf7ff10b03559937fad8c5080fb165
-size 445
+﻿@PokeBuilderMAUI.Shared_HostAddress = 
+
+GET {{PokeBuilderMAUI.Shared_HostAddress}}/api
+
+###
+
+POST {{PokeBuilderMAUI.Shared_HostAddress}}/api
+Content-Type: application/json
+
+{
+  //User
+}
+
+###
+
+GET {{PokeBuilderMAUI.Shared_HostAddress}}/api
+
+###
