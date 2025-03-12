@@ -37,6 +37,9 @@ namespace PokeBuilderMAUI.Shared.Models
         [Required(ErrorMessage = "Password is required.")]
         [BsonElement("password")]
         public string Password { get; set; }
+
+        [BsonElement("teams")]
+        public List<Pokemon[]> Teams { get; set; } = new List<Pokemon[]>();
     }
 }
 >>>>>>> 9b4ef72 (fixed github)
