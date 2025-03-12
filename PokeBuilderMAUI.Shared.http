@@ -1,0 +1,18 @@
+﻿@PokeBuilderMAUI.Shared_HostAddress = 
+
+GET {{PokeBuilderMAUI.Shared_HostAddress}}/api
+
+###
+
+POST {{PokeBuilderMAUI.Shared_HostAddress}}/api
+Content-Type: application/json
+
+{
+  //User
+}
+
+###
+
+GET {{PokeBuilderMAUI.Shared_HostAddress}}/api
+
+###

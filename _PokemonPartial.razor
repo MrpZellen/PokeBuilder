@@ -1,0 +1,62 @@
+﻿@using PokeBuilderMAUI.Shared.Models
+
+@code {
+    [Parameter]
+    public Pokemon pokemon { get; set; }
+}
+
+<div class="card bg-dark text-light border-5 border-secondary" style="width: 18rem;">
+    <img src="@pokemon.Image" class="card-img-top" alt="Photo of @pokemon.Name">
+    <div class="card-body">
+        <div class="model-name card-title h3 fw-bold">
+            <label> @pokemon.Name  NO.@pokemon.NationalDexNumber</label>
+        </div>
+        <hr class="border border-primary">
+        <div class="model-ability h5">
+            <label>@pokemon.Ability </label>
+        </div>
+        <hr class="border border-primary">
+        <div class="model-types card-subtitle">
+            <label>@pokemon.Primary</label>
+            @if (pokemon.Secondary != Models.Type.TYPELESS)
+            {
+                <label> </label>
+                <label> | @pokemon.Secondary</label>
+            }
+        </div>
+        <hr class="border border-primary">
+        <div class="list-group text-light"> 
+            <div>@pokemon.Moves[0]</div>
+            @if (pokemon.Moves.Count == 2)
+            {
+                <div>@pokemon.Moves[1]</div>                    
+
+
+            }
+            else if (pokemon.Moves.Count == 3)
+            {
+                <div>@pokemon.Moves[1]</div>
+                <div>@pokemon.Moves[2]</div>
+            }
+            else if (pokemon.Moves.Count >= 4)
+            {
+                <div>@pokemon.Moves[1]</div>
+                <div>@pokemon.Moves[2]</div>
+                <div>@pokemon.Moves[3]</div>
+            }
+        </div>
+        <hr class="border border-primary">
+            <div class="model-stats card-text">
+            <div class="stats-top">
+                <label class="text-success">HP: </label><label>@pokemon.BaseHealth</label>
+                <label class="text-danger">ATK: </label><label>@pokemon.BaseAttack</label>
+                <label class="text-primary">DEF: </label><label>@pokemon.BaseDefense</label>
+            </div>
+            <div class="stats-bottom">
+                <label class="text-success">SPD: </label><label>@pokemon.BaseSpeed</label>
+                <label class="text-danger">SPATK: </label><label>@pokemon.BaseSpAttack</label>
+                <label class="text-primary">SPDEF: </label><label>@pokemon.BaseSpDefense</label>
+            </div>
+        </div>
+    </div>
+</div>
