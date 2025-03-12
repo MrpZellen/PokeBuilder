@@ -1,3 +1,27 @@
+<<<<<<< HEAD
 version https://git-lfs.github.com/spec/v1
 oid sha256:9cf4a40a01695634e119379c67ef76333ab36066c9bc605a94b25cd771f529c5
 size 259
+=======
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>faa89dfc-2351-4219-8cbe-0d51ee5b26f7</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="3.2.1" />
+    <PackageReference Include="MongoDB.EntityFrameworkCore" Version="8.2.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PokeBuilderMAUI.Shared\PokeBuilderMAUI.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
+>>>>>>> 9b4ef72 (fixed github)

@@ -1,3 +1,34 @@
+<<<<<<< HEAD
 version https://git-lfs.github.com/spec/v1
 oid sha256:641076aa2e49cb2281b33008edb65ea259b0ceacaec0918a3c1f3f86abf55003
 size 269
+=======
+﻿@page "/test"
+@using PokeBuilderMAUI.Shared.Models
+@using PokeBuilderMAUI.Shared.Controllers
+@using PokeBuilderMAUI.Shared.Services
+@inject UserService us;
+<div>
+    @foreach (User user in users)
+    {
+        <p>@user.Username</p>
+    }
+</div>
+<h3>Test</h3>
+<_PokemonPartial pokemon="@test" />
+<_FullTeamPartial />
+
+@code {
+    Pokemon test = new Pokemon(false);
+    IEnumerable<User> users = new List<User>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetUser();
+    }
+    
+    private async Task GetUser()
+    {
+    }
+}
+>>>>>>> 9b4ef72 (fixed github)

@@ -1,3 +1,175 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:bc1c9231897536889ff2b290cc6e08edb3457aa01113f6b88bd7e0204a840326
-size 271
+﻿@using PokeBuilderMAUI.Shared.Models
+
+@code {
+    [Parameter]
+    public Pokemon? pokemon { get; set; }
+}
+
+@if (pokemon != null)
+{
+    <div class="card bg-dark text-light border-5 border-secondary" style="width: 18rem;">
+        <img src="@pokemon.Image" class="card-img-top" alt="Photo of @pokemon.Name">
+        <div class="card-body">
+            <div class="model-name card-title h3 fw-bold">
+                <label>@pokemon.Name  NO.@pokemon.NationalDexNumber</label>
+            </div>
+            <div class="model-types card-subtitle">
+                @if (pokemon.Ability == null)
+                {
+                    <select @bind="@pokemon.Ability">
+                        <option>Ability</option>
+                        @foreach (var ability in pokemon.Abilities)
+                        {
+                            <option value="@ability">@ability</option>
+                        }
+                    </select>
+                }
+                else
+                {
+                    <label>@pokemon.Ability</label>
+                }
+                <label>@pokemon.Primary</label>
+                @if (pokemon.Secondary != Models.Type.TYPELESS)
+                {
+                    <label>@pokemon.Secondary</label>
+                }
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="model-moves list-group-item card-text">
+                    <div class="moves-top">
+                        @if (pokemon.Move1 == null)
+                        {
+                            <select @bind="@pokemon.Move1">
+                                <option>Move</option>
+                                @for (int i = 0; i < pokemon.Moves.Count; i++)
+                                {
+                                    if (pokemon.Move2 != null || pokemon.Move3 != null || pokemon.Move4 != null)
+                                    {
+                                        if (pokemon.Moves[i] != pokemon.Move2 && pokemon.Moves[i] != pokemon.Move3 && pokemon.Moves[i] != pokemon.Move4)
+                                        {
+                                            <option value="@pokemon.Moves[i]">@pokemon.Moves[i]</option>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option value="@pokemon.Moves[i]">@pokemon.Moves[i]</option>
+                                    }
+                                }
+                            
+                        </select>
+                        }
+                        else
+                        {
+                            <label>@pokemon.Move1</label>
+                        }
+
+                    @if (pokemon.Move2 == null)
+                    {
+                        <select @bind="@pokemon.Move2">
+                            <option>Move</option>
+                                @for (int i = 0; i < pokemon.Moves.Count; i++)
+                                {
+                                    if (pokemon.Move1 != null || pokemon.Move3 != null || pokemon.Move4 != null)
+                                    {
+                                        if (pokemon.Moves[i] != pokemon.Move1 && pokemon.Moves[i] != pokemon.Move3 && pokemon.Moves[i] != pokemon.Move4)
+                                        {
+                                            <option value="@pokemon.Moves[i]">@pokemon.Moves[i]</option>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option value="@pokemon.Moves[i]">@pokemon.Moves[i]</option>
+                                    }
+                                }
+                        </select>
+                    }
+                    else
+                    {
+                        <label>@pokemon.Move2</label>
+                    }
+                </div>
+                <div class="moves-bottom">
+                    @if (pokemon.Move3 == null)
+                    {
+                        <select @bind="@pokemon.Move3">
+                                <option>Move</option>
+                                @for (int i = 0; i < pokemon.Moves.Count; i++)
+                                {
+                                    if (pokemon.Move1 != null || pokemon.Move2 != null || pokemon.Move4 != null)
+                                    {
+                                        if (pokemon.Moves[i] != pokemon.Move1 && pokemon.Moves[i] != pokemon.Move2 && pokemon.Moves[i] != pokemon.Move4)
+                                        {
+                                            <option value="@pokemon.Moves[i]">@pokemon.Moves[i]</option>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option value="@pokemon.Moves[i]">@pokemon.Moves[i]</option>
+                                    }
+                                }
+                        </select>
+                    }
+                    else
+                    {
+                        <label>@pokemon.Move3</label>
+                    }
+
+                     @if (pokemon.Move4 == null)
+                    {
+                        <select @bind="@pokemon.Move4">
+                                <option>Move</option>
+                                @for (int i = 0; i < pokemon.Moves.Count; i++)
+                                {
+                                    if (pokemon.Move1 != null || pokemon.Move2 != null || pokemon.Move3 != null)
+                                    {
+                                        if (pokemon.Moves[i] != pokemon.Move1 && pokemon.Moves[i] != pokemon.Move2 && pokemon.Moves[i] != pokemon.Move3)
+                                        {
+                                            <option value="@pokemon.Moves[i]">@pokemon.Moves[i]</option>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option value="@pokemon.Moves[i]">@pokemon.Moves[i]</option>
+                                    }
+                                }
+                        </select>
+                    }
+                    else
+                    {
+                        <label>@pokemon.Move4</label>
+                    }
+                </div>
+            </li>
+        </ul>
+        <div class="model-stats card-text">
+            <div class="stats-top">
+                <label>HP: @pokemon.BaseHealth</label>
+                <label>ATK: @pokemon.BaseAttack</label>
+                <label>DEF: @pokemon.BaseDefense</label>
+            </div>
+            <div class="stats-bottom">
+                <label>SPD: @pokemon.BaseSpeed</label>
+                <label>SPATK: @pokemon.BaseSpAttack</label>
+                <label>SPDEF: @pokemon.BaseSpDefense</label>
+            </div>
+        </div>
+        <div>
+            @if (pokemon.Ability != null && pokemon.Move1 != null && pokemon.Move2 != null && pokemon.Move3 != null && pokemon.Move4 != null)
+            {
+                <button @onclick="EditMemberInformation">Edit Info</button>
+            })
+        </div>
+    </div>
+</div>
+}
+
+@code{
+    private void EditMemberInformation()
+    {
+        pokemon.Ability = null;
+        pokemon.Move1 = null;
+        pokemon.Move2 = null;
+        pokemon.Move3 = null;
+        pokemon.Move4 = null;
+    }
+}

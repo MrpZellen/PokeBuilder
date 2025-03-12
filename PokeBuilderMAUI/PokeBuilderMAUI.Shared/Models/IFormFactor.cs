@@ -1,3 +1,14 @@
+<<<<<<< Updated upstream
 version https://git-lfs.github.com/spec/v1
-oid sha256:6944627ba87f4e81071039e54585efd766176cf47d5789d542ccb826571423e0
-size 254
+oid sha256:a68bf747a5ee9d9e03481dc7bb01365f6fc23f8a086346b374c6a07c0fd75db2
+size 175
+=======
+namespace PokeBuilderMAUI.Shared.Services
+{
+    public interface IFormFactor
+    {
+        public string GetFormFactor();
+        public string GetPlatform();
+    }
+}
+>>>>>>> Stashed changes

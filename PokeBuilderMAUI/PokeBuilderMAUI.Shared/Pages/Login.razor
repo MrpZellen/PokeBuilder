@@ -1,3 +1,28 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:5b9fac0272a8cde1e5396912d116684a2f30f73f3ef8cccc267dbc1def0d753c
-size 271
+﻿@page "/login"
+@* @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@inject ProtectedSessionStorage ProtectedSessionStore
+*@
+
+<h3>Login Here</h3>
+<form method="post" asp-controller="User" asp-action="Add">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="User.Username" class="form-label"></label>
+        <input asp-for="User.Username" class="form-control" />
+        <span asp-validation-for="User.Username" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="User.Password" class="form-label"></label>
+        <input asp-for="User.Password" class="form-control" />
+        <span asp-validation-for="User.Password" class="text-danger"></span>
+    </div>
+    <input type="submit" value="Add user" class="btn btn-primary" />
+</form>
+
+@code {
+    User currentUser = new User();
+    protected override async Task OnInitializedAsync()
+    {
+        
+    }
+}

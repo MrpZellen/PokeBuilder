@@ -1,3 +1,30 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:96a5b33addf2c796a7c0563b0c4ccf0017c7519cfa4462b974e1af1f189567a1
-size 669
+﻿body {
+}
+.inconsolata-medium {
+    font-family: "Inconsolata", monospace;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+.inconsolata-light {
+    font-family: "Inconsolata", monospace;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+}
+.inconsolata-bold {
+    font-family: "Inconsolata", monospace;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+}
+.inconsolata-dark {
+    font-family: "Inconsolata", monospace;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: normal;
+}
+
+.bg-pokeblue {
+    background-image: linear-gradient(to bottom, #3E3AC5, #f4dc26);
+}
