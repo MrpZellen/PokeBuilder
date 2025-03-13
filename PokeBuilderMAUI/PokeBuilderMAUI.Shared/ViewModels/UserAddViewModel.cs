@@ -1,3 +1,14 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:50c847cc4da5441897488dbc6b08b4ef9f2fbe334c4f354820d9aba9255ce4b0
-size 291
+﻿using PokeBuilderMAUI.Shared.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PokeBuilderMAUI.Shared.ViewModels
+{
+    public class UserAddViewModel
+    {
+        public User? User { get; set; }
+    }
+}

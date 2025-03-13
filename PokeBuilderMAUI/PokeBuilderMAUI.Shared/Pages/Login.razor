@@ -1,3 +1,46 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:b5b1ec8754cb9f3fe9237ea94b1a44573057e0d92ba2bedebc50a92747da0eab
-size 1538
+﻿@page "/login"
+@using PokeBuilderMAUI.Shared.Controllers
+@using System.Text.Json
+@* @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@inject ProtectedSessionStorage ProtectedSessionStore
+*@
+
+<h3>Login Here</h3>
+<form method="post" asp-controller="User" asp-action="Add">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="User.Username" class="form-label"></label>
+        <input asp-for="User.Username" class="form-control" />
+        <span asp-validation-for="User.Username" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="User.Password" class="form-label"></label>
+        <input asp-for="User.Password" class="form-control" />
+        <span asp-validation-for="User.Password" class="text-danger"></span>
+    </div>
+    <input type="submit" value="Add user" class="btn btn-primary" />
+</form>
+
+@code {
+    private readonly HttpClient _httpClient;
+
+    public User? userInfo { get; set; }
+    public string prompt { get; set; }
+
+    public Login(HttpClient httpClient)
+    {
+        _httpClient = httpClient;
+    }
+
+    public async Task OnGet()
+    {
+        prompt = "Enter your login information";
+
+        var response = await _httpClient.GetAsync("http://localhost:7136/swagger/index.html");
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            userInfo = JsonSerializer.Deserialize<User>(jsonResponse);
+        }
+    }
+}

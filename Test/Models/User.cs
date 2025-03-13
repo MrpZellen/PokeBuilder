@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:795d8e4a9cc51aca55c2d4570d05ce52a1cc4cefdd2139b4e7a66c6778834758
-size 351
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Test.Models
+{
+    public class User
+    {
+        public int UserId { get; set; }
+        public string? Name { get; set; }
+        public string? Email { get; set; }
+        public string? Password { get; set; }
+    }
+}
