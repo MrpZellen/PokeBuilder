@@ -1,19 +1,3 @@
-﻿using MongoDB.Driver;
-
-namespace PokeLoginApi.Data
-{
-    public class MongoDbService
-    {
-        private readonly IConfiguration configuration;
-        private readonly IMongoDatabase? mongoDatabase;
-
-        public MongoDbService(IConfiguration configuration)
-        {
-            this.configuration = configuration;
-            var client = new MongoClient(configuration.GetConnectionString("MongoDb"));
-            mongoDatabase = client.GetDatabase("UserInformationStorage");
-        }
-
-        public IMongoDatabase? database => mongoDatabase;
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:e802e40e43932a0ffdfa95cf35322a3c9d716bc395d6128378fd1a8c39c1db34
+size 563

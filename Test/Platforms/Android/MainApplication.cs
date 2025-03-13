@@ -1,16 +1,3 @@
-﻿using Android.App;
-using Android.Runtime;
-
-namespace Test
-{
-    [Application]
-    public class MainApplication : MauiApplication
-    {
-        public MainApplication(IntPtr handle, JniHandleOwnership ownership)
-            : base(handle, ownership)
-        {
-        }
-
-        protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:f7bc27baff427d3307deb49d0475a68b87bb364202f484f344def931ccfdede5
+size 364
