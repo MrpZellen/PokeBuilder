@@ -1,18 +1,3 @@
-﻿@PokeBuilderMAUI.Shared_HostAddress = 
-
-GET {{PokeBuilderMAUI.Shared_HostAddress}}/api
-
-###
-
-POST {{PokeBuilderMAUI.Shared_HostAddress}}/api
-Content-Type: application/json
-
-{
-  //User
-}
-
-###
-
-GET {{PokeBuilderMAUI.Shared_HostAddress}}/api
-
-###
+version https://git-lfs.github.com/spec/v1
+oid sha256:f8f9d67790bbcb8123c3a0ef20935677c8a7fede7e55bbfca192a571bb556683
+size 247
