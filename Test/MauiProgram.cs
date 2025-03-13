@@ -1,30 +1,3 @@
-﻿using Microsoft.Extensions.Logging;
-using Test.ViewModels;
-
-namespace Test
-{
-    public static class MauiProgram
-    {
-        public static MauiApp CreateMauiApp()
-        {
-            var builder = MauiApp.CreateBuilder();
-            builder
-                .UseMauiApp<App>()
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
-
-            //builder.Services.AddSingleton<>();
-            builder.Services.AddSingleton<LoginPage>();
-            builder.Services.AddSingleton<LoginPageViewModel>();
-
-#if DEBUG
-    		builder.Logging.AddDebug();
-#endif
-
-            return builder.Build();
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:d19f75977fb809dffb4086453f423246176ac6c2c03454c9c8c85d0b0a067c31
+size 799
