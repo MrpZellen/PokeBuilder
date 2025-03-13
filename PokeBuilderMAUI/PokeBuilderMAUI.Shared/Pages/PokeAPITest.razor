@@ -49,10 +49,9 @@
         }
         while (getPokemon)
         {
-            try
-            {
-                bool isLoaded = false;
-                if (!isLoaded)
+
+            
+                try
                 {
                     // data == get JSON object from requested URL\
 
@@ -150,21 +149,18 @@
 
                     //primary = Enum.TryParse((data.GetProperty("types[0].type.name").ToString().ToUpper());
 
-                    currentIndex++;
+                        currentIndex++;
 
-                    await InvokeAsync(StateHasChanged);
-
-                    isLoaded = true;
-                }
-
-
-        }
-            catch (Exception notFound)
-            {
-                getPokemon = false;
-                await InvokeAsync(StateHasChanged);
+                        await InvokeAsync(StateHasChanged);
+                              
             }
-    
-    }
+                catch (Exception notFound)
+                {
+                    getPokemon = false;
+                    await InvokeAsync(StateHasChanged);
+                }
+                
+            }    
+        }
     }
 }

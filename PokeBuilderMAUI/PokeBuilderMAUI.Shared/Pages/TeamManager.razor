@@ -3,13 +3,13 @@
 @using Newtonsoft.Json.Linq
 
 <h3>TeamManager</h3>
-<_TeamMemberPartial />
 @inject HttpClient Client
 
 <p>Please log in to see your Teams!</p>
 
 @code {
     public Pokemon[] team = new Pokemon[6];
+    public int iterable = 0;
 }
 
 <input type="text" @bind="pokename" />
@@ -21,6 +21,15 @@
     {
         <_TeamMemberPartial pokemon="team[i]" />
     }
+    if (team != null)
+    {
+        <_FullTeamPartial  />
+    }
+
+    @*     if (team[i] != null && team[i].Ability != null && team[i].Move1 != null && team[i].Move2 != null && team[i].Move3 != null && team[i].Move4 != null)
+    {
+        <_FullTeamPartial team[i]/>
+    } *@
 }
 
 @code {
@@ -131,6 +140,10 @@
         {
             Console.WriteLine("Pokemon Not Found");
         }
+    }
+    public void SendPokemontToTeam()
+    {
+        //team[iterable]
     }
 
     private String FormatString(string toFormat)
