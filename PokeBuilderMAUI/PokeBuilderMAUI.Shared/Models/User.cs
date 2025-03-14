@@ -17,8 +17,8 @@ namespace PokeBuilderMAUI.Shared.Models
         //BsonRepresentation is used to define the type of the Id variable in the MongoDB collection
         //BsonElement is used to define the variable name in the MongoDB collection
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public ObjectId Id { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]        
+        public string _id { get; set; }
 
         //The RegexExpression tag is used to define what is permitted in regex.
         //User: 8-20 characters, no special characters except ! and $
@@ -32,5 +32,8 @@ namespace PokeBuilderMAUI.Shared.Models
         [Required(ErrorMessage = "Password is required.")]
         [BsonElement("password")]
         public string Password { get; set; }
+
+        [BsonElement("teams")]
+        public List<Pokemon[]> Teams { get; set; } = new List<Pokemon[]>();
     }
 }
