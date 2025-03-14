@@ -1,8 +1,15 @@
+﻿<<<<<<< HEAD
+version https://git-lfs.github.com/spec/v1
+oid sha256:73b5422ae6c48ce08a7de36599d6c27b2069b046fe93b4f87496c464e0d2ca4d
+size 6300
+=======
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 using PokeLoginApi.Data;
 using PokeLoginApi.Models;
 using System;
+using System.Threading.Tasks;
 
 namespace PokeLoginApi.Controllers
 {
@@ -43,11 +50,13 @@ namespace PokeLoginApi.Controllers
             }
             return await _context.Users.ToListAsync();
         }
+        //public async Task<ActionResult<List<User>>> Get() => Ok(await mongoCollection.Users.ToListAsync());
 
         // GET: User/GetUser/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(int? id)
         {
+            // Check if ID is null
             if (id == null)
             {
                 return NotFound();
@@ -205,3 +214,4 @@ namespace PokeLoginApi.Controllers
     }
     #endregion
 }
+>>>>>>> 9b4ef72 (fixed github)

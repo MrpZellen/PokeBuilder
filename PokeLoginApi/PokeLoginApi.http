@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+version https://git-lfs.github.com/spec/v1
+oid sha256:2962d1b45d2cc1ccaf4a36acbc119059a1ea57b243a7116d77628e78d8634c7a
+size 1276
+=======
 @PokeLoginApi_HostAddress = https://localhost:7264
 
 GET {{PokeLoginApi_HostAddress}}/weatherforecast/
@@ -69,3 +74,17 @@ POST {{PokeLoginApi_HostAddress}}/api/user
 POST {{PokeLoginApi_HostAddress}}/api/user?id={{id}}
 
 ###
+
+POST {{PokeLoginApi_HostAddress}}/api/user
+Content-Type: application/json
+
+{
+  //User
+}
+
+###
+
+POST {{PokeLoginApi_HostAddress}}/api/user
+
+###
+>>>>>>> 9b4ef72 (fixed github)

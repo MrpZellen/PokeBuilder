@@ -1,3 +1,8 @@
+﻿<<<<<<< HEAD
+version https://git-lfs.github.com/spec/v1
+oid sha256:135722a5a59d6d172f329c845f525e5fbf9342270ee17b9fffc0ef6171388b10
+size 271
+=======
 ﻿@page "/poke-api-test"
 @using System.Text.Json
 @using System.Text.Json.Serialization
@@ -14,7 +19,7 @@
     <p>Loading Pokemon #@currentIndex</p>
 }
 
-<div class="d-flex">
+<div class="d-flex flex-wrap">
     @foreach (Pokemon pokemon in PokemonInitializer.AllPokemon)
     {
         if (pokemon != null)
@@ -27,7 +32,7 @@
 
 
 @code {
-    
+
     private static int currentIndex = 1;
     private bool getPokemon = true;
 
@@ -51,111 +56,121 @@
         {
             try
             {
-                // data == get JSON object from requested URL\
-
-                HttpResponseMessage data = await Client.GetAsync($"{Client.BaseAddress}/{currentIndex}");
-
-                string content = await data.Content.ReadAsStringAsync();
-                JObject json = JObject.Parse(content);
-
-                //Set the string properties in the JSON object
-
-                string ability = json["abilities"][0]["ability"]["name"].ToString();
-                string name = json["name"].ToString();
-
-                Models.Type primary = Enum.TryParse((json["types"][0]["type"]["name"].ToString().ToUpper()), out primary) ? primary : Models.Type.TYPELESS;
-
-                Models.Type secondary = Models.Type.TYPELESS;
-                try
+                bool isLoaded = false;
+                if (!isLoaded)
                 {
-                    secondary = Enum.TryParse((json["types"][1]["type"]["name"].ToString().ToUpper()), out secondary) ? secondary : Models.Type.TYPELESS;
-                }
-                catch (ArgumentOutOfRangeException aoore)
-                {
-                    secondary = Models.Type.TYPELESS;
-                };
+                    // data == get JSON object from requested URL\
 
-                List<string> abilities = new List<string>();
-                bool hasMoreAbilities = true;
-                int a = 0;
-                do
-                {
-                    string abilityy = "null";
+                    HttpResponseMessage data = await Client.GetAsync($"{Client.BaseAddress}/{currentIndex}");
 
+                    string content = await data.Content.ReadAsStringAsync();
+                    JObject json = JObject.Parse(content);
+
+                    //Set the string properties in the JSON object
+
+                    string ability = json["abilities"][0]["ability"]["name"].ToString();
+                    string name = json["name"].ToString();
+
+                    Models.Type primary = Enum.TryParse((json["types"][0]["type"]["name"].ToString().ToUpper()), out primary) ? primary : Models.Type.TYPELESS;
+
+                    Models.Type secondary = Models.Type.TYPELESS;
                     try
                     {
-                        abilityy = json["abilities"][a]["ability"]["name"].ToString();
+                        secondary = Enum.TryParse((json["types"][1]["type"]["name"].ToString().ToUpper()), out secondary) ? secondary : Models.Type.TYPELESS;
                     }
                     catch (ArgumentOutOfRangeException aoore)
                     {
-                        hasMoreAbilities = false;
+                        secondary = Models.Type.TYPELESS;
                     };
 
-                    if (hasMoreAbilities)
+                    List<string> abilities = new List<string>();
+                    bool hasMoreAbilities = true;
+                    int a = 0;
+                    do
                     {
-                        abilities.Add(abilityy);
-                        a++;
+                        string abilityy = "null";
+
+                        try
+                        {
+                            abilityy = json["abilities"][a]["ability"]["name"].ToString();
+                        }
+                        catch (ArgumentOutOfRangeException aoore)
+                        {
+                            hasMoreAbilities = false;
+                        };
+
+                        if (hasMoreAbilities)
+                        {
+                            abilities.Add(abilityy);
+                            a++;
+                        }
                     }
+                    while (hasMoreAbilities);
+
+
+
+                    List<string> moves = new List<string>();
+                    bool hasMoreMoves = true;
+                    int m = 0;
+                    do
+                    {
+                        string move = "null";
+
+                        try
+                        {
+                            move = json["moves"][m]["move"]["name"].ToString();
+                        }
+                        catch (ArgumentOutOfRangeException aoore)
+                        {
+                            hasMoreMoves = false;
+                        };
+
+                        if (hasMoreMoves)
+                        {
+                            moves.Add(move);
+                            m++;
+                        }
+                    }
+                    while (hasMoreMoves);
+
+                    int hp = int.Parse(json["stats"][0]["base_stat"].ToString());
+                    int atk = int.Parse(json["stats"][1]["base_stat"].ToString());
+                    int def = int.Parse(json["stats"][2]["base_stat"].ToString());
+                    int spatk = int.Parse(json["stats"][3]["base_stat"].ToString());
+                    int spdef = int.Parse(json["stats"][4]["base_stat"].ToString());
+                    int spd = int.Parse(json["stats"][5]["base_stat"].ToString());
+
+                    string image = json["sprites"]["other"]["official-artwork"]["front_default"].ToString();
+
+                    string[] finalMoves = new string[4];
+                    finalMoves[0] = "tackle";
+                    finalMoves[1] = "leech seed";
+                    finalMoves[2] = "growl";
+                    finalMoves[3] = "rest";
+
+
+                    Pokemon pokemon = new Pokemon(name, primary, secondary, ability, moves, hp, atk, def, spatk, spdef, spd, $"{image}", currentIndex);
+
+                    PokemonInitializer.AllPokemon.Add(pokemon);
+
+                    //primary = Enum.TryParse((data.GetProperty("types[0].type.name").ToString().ToUpper());
+
+                    currentIndex++;
+
+                    await InvokeAsync(StateHasChanged);
+
+                    isLoaded = true;
                 }
-                while (hasMoreAbilities);
 
 
-
-                List<string> moves = new List<string>();
-                bool hasMoreMoves = true;
-                int m = 0;
-                do
-                {
-                    string move = "null";
-
-                    try
-                    {
-                        move = json["moves"][m]["move"]["name"].ToString();
-                    }
-                    catch (ArgumentOutOfRangeException aoore)
-                    {
-                        hasMoreMoves = false;
-                    };
-
-                    if (hasMoreMoves)
-                    {
-                        moves.Add(move);
-                        m++;
-                    }
-                }
-                while (hasMoreMoves);
-
-                int hp = int.Parse(json["stats"][0]["base_stat"].ToString());
-                int atk = int.Parse(json["stats"][1]["base_stat"].ToString());
-                int def = int.Parse(json["stats"][2]["base_stat"].ToString());
-                int spatk = int.Parse(json["stats"][3]["base_stat"].ToString());
-                int spdef = int.Parse(json["stats"][4]["base_stat"].ToString());
-                int spd = int.Parse(json["stats"][5]["base_stat"].ToString());
-
-                string image = json["sprites"]["other"]["official-artwork"]["front_default"].ToString();
-
-                string[] finalMoves = new string[4];
-                finalMoves[0] = "tackle";
-                finalMoves[1] = "leech seed";
-                finalMoves[2] = "growl";
-                finalMoves[3] = "rest";
-
-                
-                Pokemon pokemon = new Pokemon(name, primary, secondary, ability, moves, 50, 50, 50, 50, 50, 50, $"{image}",currentIndex);
-
-                PokemonInitializer.AllPokemon.Add(pokemon);
-
-                //primary = Enum.TryParse((data.GetProperty("types[0].type.name").ToString().ToUpper());
-
-                currentIndex++;
-
-                await InvokeAsync(StateHasChanged);
-            }
+        }
             catch (Exception notFound)
             {
                 getPokemon = false;
                 await InvokeAsync(StateHasChanged);
             }
-        }
+    
+    }
     }
 }
+>>>>>>> 9b4ef72 (fixed github)

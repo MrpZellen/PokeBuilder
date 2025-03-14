@@ -1,4 +1,6 @@
 ﻿@page "/login"
+@using PokeBuilderMAUI.Shared.Controllers
+@using System.Text.Json
 @* @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @inject ProtectedSessionStorage ProtectedSessionStore
 *@
@@ -20,9 +22,25 @@
 </form>
 
 @code {
-    User currentUser = new User();
-    protected override async Task OnInitializedAsync()
+    private readonly HttpClient _httpClient;
+
+    public User? userInfo { get; set; }
+    public string prompt { get; set; }
+
+    public Login(HttpClient httpClient)
     {
-        
+        _httpClient = httpClient;
+    }
+
+    public async Task OnGet()
+    {
+        prompt = "Enter your login information";
+
+        var response = await _httpClient.GetAsync("http://localhost:7136/swagger/index.html");
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            userInfo = JsonSerializer.Deserialize<User>(jsonResponse);
+        }
     }
 }
