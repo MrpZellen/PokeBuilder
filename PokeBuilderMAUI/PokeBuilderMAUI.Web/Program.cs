@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+version https://git-lfs.github.com/spec/v1
+oid sha256:c7067f4c124afa4cbd255aeab4832bab2687cd8b7990aa2cc92bdd67bb99cbcd
+size 261
+=======
 using PokeBuilderMAUI.Web.Components;
 using PokeBuilderMAUI.Shared.Models;
 using Microsoft.EntityFrameworkCore;
@@ -75,3 +80,4 @@ namespace PokeBuilderMAUI.Web
         }
     }
 }
+>>>>>>> 9b4ef72 (fixed github)

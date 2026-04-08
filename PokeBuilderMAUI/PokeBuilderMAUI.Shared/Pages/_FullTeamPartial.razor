@@ -2,28 +2,49 @@
 
 @code {
     //PKList shoul directly import the team of pokemon the user has made.
-    private static List<Pokemon> PKList = new List<Pokemon>(){
-        //test list of testasaurs to test visuals of the object.
-        new Pokemon(false),
-        new Pokemon(false),
-        new Pokemon(false),
-        new Pokemon(false),
-        new Pokemon(false),
-        new Pokemon(false)
-    };
+    [Parameter]
+    public Pokemon[] PKList { get; set; } = new Pokemon[6];
+
     //teamCount will be used to iterate through the list of pokemon in the team.
-    int teamCount = PKList.Count;
 }
 <div class="card-group border-light mb-3">
     @foreach(Pokemon pokemon in PKList){
-        <div class="card bg-dark text-light border-5 border-secondary" style="width: 18rem;">
-            <img src="@pokemon.Image" class="card-img-top" alt="image of @pokemon.Name">
-            <div class="card-body">
-                <h5 class="card-title fw-bold">@pokemon.Name</h5>
-                <a href="#" class="btn btn-secondary">Edit</a>
-                <a href="#" class="btn btn-danger">Remove</a>
-            </div>
-        </div>
+        if (pokemon != null)
+        {
+            <div class="card bg-dark text-light border-5 border-secondary" style="width: 18rem;">
+                <img src="@pokemon.Image" style="width: 10rem;" class="card-img-top" alt="image of @pokemon.Name">
+                <div class="card-body">
+                    <p class="card-title fw-bold h3">@pokemon.Name</p>
+                    <p>@pokemon.NationalDexNumber</p>
+                    <p>@pokemon.Primary</p>
+                    @if (pokemon.Secondary != Models.Type.TYPELESS)
+                    {
+                        <p>@pokemon.Secondary</p>
+                    }
+                    <p>@pokemon.Ability</p>
+                    <p>@pokemon.Move1</p>
+                    <p>@pokemon.Move2</p>
+                    <p>@pokemon.Move3</p>
+                    <p>@pokemon.Move4</p>
+                    <p>HP: @pokemon.BaseHealth</p>
+                    <p>ATK: @pokemon.BaseAttack</p>
+                    <p>DEF: @pokemon.BaseDefense</p>
+                    <p>SPATK: @pokemon.BaseSpAttack</p>
+                    <p>SPDEF: @pokemon.BaseSpDefense</p>
+                    <p>SPD: @pokemon.BaseSpeed</p>
+                    <a @onclick="OnEditClick" href="#" class="btn btn-secondary">Edit</a>
+                    <a href="#" class="btn btn-danger">Remove</a>
+                </div>
+            </div>           
+        }
     }
 </div>
+
+@code
+{
+    private void OnEditClick()
+    {
+
+    }
+}
 

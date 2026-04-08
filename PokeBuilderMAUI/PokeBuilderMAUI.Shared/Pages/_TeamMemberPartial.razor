@@ -3,6 +3,23 @@
 @code {
     [Parameter]
     public Pokemon? pokemon { get; set; }
+
+    [Parameter]
+    public Pokemon[] PKTeam { get; set; } = new Pokemon[6];
+}
+
+@if (PKTeam != null)
+{
+    Pokemon[] PKList = new Pokemon[6];
+    for (int i = 0; i < PKList.Length; i++)
+    {
+        if (PKTeam[i] != null)
+        {
+            PKList[i] = PKTeam[i];
+        }
+    }
+
+    <_FullTeamPartial PKList="PKList"/>
 }
 
 @if (pokemon != null)
@@ -55,18 +72,18 @@
                                         <option value="@pokemon.Moves[i]">@pokemon.Moves[i]</option>
                                     }
                                 }
-                            
-                        </select>
+
+                            </select>
                         }
                         else
                         {
                             <label>@pokemon.Move1</label>
                         }
 
-                    @if (pokemon.Move2 == null)
-                    {
-                        <select @bind="@pokemon.Move2">
-                            <option>Move</option>
+                        @if (pokemon.Move2 == null)
+                        {
+                            <select @bind="@pokemon.Move2">
+                                <option>Move</option>
                                 @for (int i = 0; i < pokemon.Moves.Count; i++)
                                 {
                                     if (pokemon.Move1 != null || pokemon.Move3 != null || pokemon.Move4 != null)
@@ -81,17 +98,17 @@
                                         <option value="@pokemon.Moves[i]">@pokemon.Moves[i]</option>
                                     }
                                 }
-                        </select>
-                    }
-                    else
-                    {
-                        <label>@pokemon.Move2</label>
-                    }
-                </div>
-                <div class="moves-bottom">
-                    @if (pokemon.Move3 == null)
-                    {
-                        <select @bind="@pokemon.Move3">
+                            </select>
+                        }
+                        else
+                        {
+                            <label>@pokemon.Move2</label>
+                        }
+                    </div>
+                    <div class="moves-bottom">
+                        @if (pokemon.Move3 == null)
+                        {
+                            <select @bind="@pokemon.Move3">
                                 <option>Move</option>
                                 @for (int i = 0; i < pokemon.Moves.Count; i++)
                                 {
@@ -107,16 +124,16 @@
                                         <option value="@pokemon.Moves[i]">@pokemon.Moves[i]</option>
                                     }
                                 }
-                        </select>
-                    }
-                    else
-                    {
-                        <label>@pokemon.Move3</label>
-                    }
+                            </select>
+                        }
+                        else
+                        {
+                            <label>@pokemon.Move3</label>
+                        }
 
-                     @if (pokemon.Move4 == null)
-                    {
-                        <select @bind="@pokemon.Move4">
+                        @if (pokemon.Move4 == null)
+                        {
+                            <select @bind="@pokemon.Move4">
                                 <option>Move</option>
                                 @for (int i = 0; i < pokemon.Moves.Count; i++)
                                 {
@@ -132,44 +149,77 @@
                                         <option value="@pokemon.Moves[i]">@pokemon.Moves[i]</option>
                                     }
                                 }
-                        </select>
-                    }
-                    else
-                    {
-                        <label>@pokemon.Move4</label>
-                    }
+                            </select>
+                        }
+                        else
+                        {
+                            <label>@pokemon.Move4</label>
+                        }
+                    </div>
+                </li>
+            </ul>
+            <div class="model-stats card-text">
+                <div class="stats-top">
+                    <label>HP: @pokemon.BaseHealth</label>
+                    <label>ATK: @pokemon.BaseAttack</label>
+                    <label>DEF: @pokemon.BaseDefense</label>
                 </div>
-            </li>
-        </ul>
-        <div class="model-stats card-text">
-            <div class="stats-top">
-                <label>HP: @pokemon.BaseHealth</label>
-                <label>ATK: @pokemon.BaseAttack</label>
-                <label>DEF: @pokemon.BaseDefense</label>
+                <div class="stats-bottom">
+                    <label>SPD: @pokemon.BaseSpeed</label>
+                    <label>SPATK: @pokemon.BaseSpAttack</label>
+                    <label>SPDEF: @pokemon.BaseSpDefense</label>
+                </div>
             </div>
-            <div class="stats-bottom">
-                <label>SPD: @pokemon.BaseSpeed</label>
-                <label>SPATK: @pokemon.BaseSpAttack</label>
-                <label>SPDEF: @pokemon.BaseSpDefense</label>
+            <div>
+                @if (pokemon.Ability != null && pokemon.Move1 != null && pokemon.Move2 != null && pokemon.Move3 != null && pokemon.Move4 != null)
+                {
+                    <button @onclick="ConfirmAddition">Confirm</button>
+                }
             </div>
-        </div>
-        <div>
-            @if (pokemon.Ability != null && pokemon.Move1 != null && pokemon.Move2 != null && pokemon.Move3 != null && pokemon.Move4 != null)
-            {
-                <button @onclick="EditMemberInformation">Edit Info</button>
-            })
         </div>
     </div>
-</div>
+}
+else
+{
+    return;
 }
 
 @code{
-    private void EditMemberInformation()
+    private void ConfirmAddition()
     {
-        pokemon.Ability = null;
-        pokemon.Move1 = null;
-        pokemon.Move2 = null;
-        pokemon.Move3 = null;
-        pokemon.Move4 = null;
+        string name = pokemon.Name;
+        int natDex = pokemon.NationalDexNumber;
+        string ability = pokemon.Ability;
+        Models.Type primary = pokemon.Primary;
+        Models.Type secondary = pokemon.Secondary;
+        string move1 = pokemon.Move1;
+        string move2 = pokemon.Move2;
+        string move3 = pokemon.Move3;
+        string move4 = pokemon.Move4;
+        int HP = pokemon.BaseHealth;
+        int ATK = pokemon.BaseAttack;
+        int DEF = pokemon.BaseDefense;
+        int SPATK = pokemon.BaseSpAttack;
+        int SPDEF = pokemon.BaseSpDefense;
+        int SPD = pokemon.BaseSpeed;
+        string image = pokemon.Image;
+
+        for(int i = 0; i < PKTeam.Length; i++)
+        {
+            if (PKTeam[i] == null)
+            {
+                Pokemon member = new Pokemon(name, primary, secondary, ability, move1, move2, move3, move4, HP, ATK, DEF, SPATK, SPDEF, SPD,
+                image, natDex);
+
+                PKTeam[i] = member;;
+                break;
+            }
+        }
+
+        // pokemon.Ability = null;
+        // pokemon.Move1 = null;
+        // pokemon.Move2 = null;
+        // pokemon.Move3 = null;
+        // pokemon.Move4 = null;
     }
 }
